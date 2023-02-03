@@ -2780,7 +2780,7 @@ input::-moz-focus-inner {
   transition: all 0.5s ease-in-out;
 }
 
-.item-folio__thumb .thumb-link::before {
+/* .item-folio__thumb .thumb-link::before {
   display: block;
   content: "";
   background-color: rgba(0, 0, 0, 0.7);
@@ -2791,9 +2791,9 @@ input::-moz-focus-inner {
   height: 100%;
   opacity: 0;
   visibility: hidden;
-}
+} */
 
-.item-folio__thumb .thumb-link::after {
+/* .item-folio__thumb .thumb-link::after {
   display: block;
   content: "";
   width: 3.6rem;
@@ -2810,7 +2810,7 @@ input::-moz-focus-inner {
   position: absolute;
   top: 50%;
   left: 50%;
-}
+} */
 
 .item-folio__thumb img {
   vertical-align: bottom;

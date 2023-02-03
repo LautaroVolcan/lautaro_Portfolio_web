@@ -177,7 +177,7 @@
             items.push(item);
         });
 
-        // bind click event
+        //bind click event
         $folioItems.each(function(i) {
 
             $(this).find('.thumb-link').on('click', function(e) {
@@ -277,9 +277,9 @@
         ssMobileMenu();
         ssWaypoints();
         ssMasonryFolio();
-        ssPhotoswipe();
+        //ssPhotoswipe();
         ssSlickSlider();
-        ssSmoothScroll();
+        // ssSmoothScroll();
         ssAlertBoxes();
         ssAOS();
 
