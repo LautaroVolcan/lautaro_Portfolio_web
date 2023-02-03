@@ -2759,7 +2759,7 @@ input::-moz-focus-inner {
 .item-folio {
   text-align: center;
   padding: 60px;
-  background-color: #c4c4c4;
+  background-color: #e7e7e7;
   transition: all 0.5s ease-in-out;
 }
 
@@ -2870,12 +2870,12 @@ input::-moz-focus-inner {
 
 .item-folio__title {
   font-weight: 500;
-  color: #ffffff;
+  color: #000000;
 }
 
 .item-folio__cat {
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .item-folio__cat::before {
