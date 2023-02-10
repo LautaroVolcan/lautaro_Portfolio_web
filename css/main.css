@@ -2570,7 +2570,7 @@ input::-moz-focus-inner {
   padding-top: 3.6rem;
 }
 
-.services-list .item-service__content::before {
+/* .services-list .item-service__content::before {
   display: block;
   content: counter(ctr, decimal-leading-zero) ".";
   counter-increment: ctr;
@@ -2580,7 +2580,7 @@ input::-moz-focus-inner {
   font-size: 8rem;
   line-height: 1;
   color: #B23730;
-}
+} */
 
 /* ------------------------------------------------------------------- 
  * responsive:
