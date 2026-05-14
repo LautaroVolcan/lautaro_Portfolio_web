@@ -7,6 +7,49 @@
     <meta charset="utf-8">
     <title>Lautaro Ferrandi</title>
     <meta name="description" content="Personal portfolio website">
+
+    <style>
+        #splash {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        #splash-btn {
+            position: relative;
+            z-index: 2;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #B23730;
+            border: none;
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #splash-btn:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 0 12px rgba(178,55,48,0.2);
+        }
+        #splash-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+        }
+        #splash.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease;
+        }
+    </style>
     <meta name="author" content="LautaroFerrandi">
 
     <!-- mobile specific metas
@@ -34,6 +77,12 @@
 </head>
 
 <body id="top">
+
+    <!-- splash screen
+    ================================================== -->
+    <div id="splash">
+        <button id="splash-btn">Connect</button>
+    </div>
 
     <div id="preloader">
         <div id="loader"></div>
@@ -93,7 +142,11 @@
             </div>
 
             <div class="intro-grid"></div>
-            <div class="intro-pic"></div>
+            <div class="intro-pic">
+                <video autoplay loop muted playsinline>
+                    <source src="images/Hero_Video.mp4" type="video/mp4">
+                </video>
+            </div>
 
         </div> <!-- end row -->
 
@@ -657,5 +710,18 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+
+
+    <script>
+        (function () {
+            var btn    = document.getElementById('splash-btn');
+            var splash = document.getElementById('splash');
+
+            btn.addEventListener('click', function () {
+                splash.classList.add('fade-out');
+                setTimeout(function () { splash.style.display = 'none'; }, 400);
+            });
+        })();
+    </script>
 
 </body>
