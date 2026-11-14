@@ -1,0 +1,84 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Label from '../../components/Label.astro';
+import { getProjects, embedUrl } from '../../lib';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, index: i, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, index, next } = Astro.props;
+const p = project.data;
+const { Content } = await render(project);
+const embed = p.video ? embedUrl(p.video) : null;
+const og = await getImage({ src: p.cover, width: 1200, format: 'jpg', quality: 82 });
+
+const facts = [
+  ['Category', p.category],
+  ['Year', p.year],
+  ['Client', p.client],
+  ['Role', p.role],
+  ['Tools', p.tools.length ? p.tools.join(', ') : undefined],
+].filter(([, v]) => v !== undefined && v !== '');
+---
+
+<Base title={`${p.title} — Lautaro Ferrandi`} description={p.summary} image={og.src} current="work">
+  <article class="project">
+    <div class="wrap">
+      <a class="back mono" href="/#work">← All work</a>
+      <Label n={index + 1} text={p.category} />
+      <h1>{p.title}</h1>
+      <p class="project__summary">{p.summary}</p>
+
+      <dl class="facts mono">
+        {facts.map(([k, v]) => (
+          <div>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <figure class="project__hero">
+        {embed ? (
+          <div class="embed">
+            <iframe src={embed} title={`${p.title} — video`} allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+        ) : p.loop ? (
+          <video src={p.loop} autoplay muted loop playsinline aria-label={p.coverAlt}></video>
+        ) : (
+          <Image src={p.cover} alt={p.coverAlt} widths={[720, 1200, 1600]} sizes="(max-width: 1440px) 92vw, 1300px" loading="eager" />
+        )}
+      </figure>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      {p.gallery.length > 0 && (
+        <div class="gallery">
+          {p.gallery.map((g) => (
+            <Image src={g.src} alt={g.alt} widths={[720, 1200, 1600]} sizes="(max-width: 1440px) 92vw, 1300px" />
+          ))}
+        </div>
+      )}
+
+      {p.external && (
+        <p class="project__external">
+          <a class="btn" href={p.external.url} target="_blank" rel="noopener">{p.external.label} ↗</a>
+        </p>
+      )}
+
+      <a class="next" href={`/work/${next.id}/`}>
+        <p class="label"><span class="tc">Next</span><span>{next.data.category}</span></p>
+        <span class="next__title">{next.data.title}&nbsp;→</span>
+      </a>
+    </div>
+  </article>
+</Base>

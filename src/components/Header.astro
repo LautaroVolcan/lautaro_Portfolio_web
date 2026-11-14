@@ -1,0 +1,21 @@
+---
+const { current = 'home' } = Astro.props as { current?: 'home' | 'work' };
+const links = [
+  { href: '/#work', label: 'Work' },
+  { href: '/#about', label: 'About' },
+  { href: '/#capabilities', label: 'Capabilities' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+
+<header class="site-header" data-header>
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Lautaro Ferrandi — home"></a>
+    <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>Menu</button>
+    <nav class="nav mono" id="site-nav" aria-label="Main">
+      <ul>
+        {links.map((l) => <li><a href={l.href} aria-current={current === 'work' && l.label === 'Work' ? 'page' : undefined}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+</header>

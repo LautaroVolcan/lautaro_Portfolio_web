@@ -1,0 +1,41 @@
+---
+import { hero, site } from '../data/site';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__stage" data-hero-stage>
+    <div class="hero__grid dot-grid" aria-hidden="true"></div>
+    <figure class="hero__media">
+      <video
+        data-hero-video
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        poster="/video/hero-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="/video/hero-loop.mp4" type="video/mp4" />
+      </video>
+    </figure>
+  </div>
+
+  <div class="wrap hero__inner">
+    <div>
+      <p class="hero__greeting">{hero.greeting}</p>
+      <h1 id="hero-title">{hero.lines.map((l) => <span>{l}</span>)}</h1>
+      <div class="hero__actions">
+        {site.reel && <a class="btn btn--red" href={site.reel} target="_blank" rel="noopener">▶ Watch reel</a>}
+        <a class="btn" href="#work">Selected work</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__bar mono">
+    <div class="wrap">
+      <span class="rec" aria-hidden="true">TC <span data-timecode>00:00:00:00</span></span>
+      <a href="#work">Scroll ↓</a>
+    </div>
+  </div>
+</section>
