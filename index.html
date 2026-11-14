@@ -5,8 +5,23 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Lautaro Ferrandi</title>
-    <meta name="description" content="Personal portfolio website">
+    <title>Lautaro Ferrandi — Video Editor, Motion Designer &amp; Multimedia Artist</title>
+    <meta name="description" content="Lautaro Ferrandi is a senior video editor and motion designer based in Barcelona: paid social, motion graphics, VJ visuals, interactive installations and documentary.">
+    <link rel="canonical" href="https://www.lautaroferrandi.com/">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- social sharing (Open Graph / X)
+    ================================================== -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Lautaro Ferrandi">
+    <meta property="og:title" content="Lautaro Ferrandi — Video Editor &amp; Multimedia Artist">
+    <meta property="og:description" content="Video editing, motion graphics, real-time visuals and documentary. Based in Barcelona.">
+    <meta property="og:url" content="https://www.lautaroferrandi.com/">
+    <meta property="og:image" content="https://www.lautaroferrandi.com/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@LautaroVolcan">
 
     <style>
         #splash {
@@ -44,13 +59,20 @@
             pointer-events: none;
             transition: opacity 0.15s ease;
         }
+        html.no-splash #splash { display: none; }
         #splash.fade-out {
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.22s ease;
         }
     </style>
-    <meta name="author" content="LautaroFerrandi">
+    <meta name="author" content="Lautaro Ferrandi">
+    <script>
+        // skip the splash on deep links (#works) and for returning visitors in this session
+        try {
+            if (location.hash || sessionStorage.getItem('lf-connected')) document.documentElement.classList.add('no-splash');
+        } catch (e) {}
+    </script>
 
     <!-- mobile specific metas
     ================================================== -->
@@ -58,6 +80,9 @@
 
     <!-- CSS
     ================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:400,500|Lora:400,400i,700,700i|Roboto:300,400,500,600,700&display=swap">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/main.css">
@@ -65,13 +90,13 @@
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
-    <script src="js/pace.min.js"></script>
 
     <!-- favicons
     ================================================== -->
-    <link rel="apple-touch-icon" sizes="180x180" href="VolcanIco (1).png">
-    <link rel="icon" type="image/png" sizes="32x32" href="VolcanIco (2).png">
-    <link rel="icon" type="image/png" sizes="16x16" href="VolcanIco (3).png">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
 
 </head>
@@ -84,17 +109,14 @@
         <button id="splash-btn">Connect</button>
     </div>
 
-    <div id="preloader">
-        <div id="loader"></div>
-    </div>
 
     <!-- site header
     ================================================== -->
     <header class="s-header">
 
         <div class="header-logo">
-            <a class="site-logo" href="index.html">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" aria-label="Homepage"><circle cx="18" cy="18" r="18" fill="#B23730"/></svg>
+            <a class="site-logo" href="#top" aria-label="Lautaro Ferrandi — home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="18" fill="#B23730"/></svg>
             </a>
         </div>
 
@@ -102,20 +124,20 @@
             <ul class="header-main-nav">
                 <li class="current"><a class="smoothscroll" href="#intro" title="intro">Intro</a></li>
                 <li><a class="smoothscroll" href="#about" title="about">About</a></li>
-                <li><a class="smoothscroll" href="#services" title="services">Services</a></li>
+                <li><a class="smoothscroll" href="#services" title="capabilities">Capabilities</a></li>
                 <li><a class="smoothscroll" href="#works" title="works">Works</a></li>
                 <li><a class="smoothscroll" href="#contact" title="contact us">Say Hello</a></li>	
             </ul>
 
             <ul class="header-social">
-                <li><a href="https://www.linkedin.com/in/lautaroferrandi/" target="_blank"><i class="fab fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
-                <li><a href="https://twitter.com/LautaroVolcan" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="vertical-align:middle"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a></li>
-                <li><a href="https://github.com/LautaroVolcan" target="_blank"><i class="fab fa-brands fa-github" aria-hidden="true"></i></a></li>
-                <li><a href="https://www.behance.net/lautaroferrandi" target="_blank"><i class="fab fa-behance" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/lautaroferrandi/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a href="https://twitter.com/LautaroVolcan" target="_blank" rel="noopener" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="vertical-align:middle"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a></li>
+                <li><a href="https://github.com/LautaroVolcan" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-brands fa-github" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.behance.net/lautaroferrandi" target="_blank" rel="noopener" aria-label="Behance"><i class="fab fa-behance" aria-hidden="true"></i></a></li>
             </ul>
         </nav>
 
-        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+        <a class="header-menu-toggle" href="#" role="button" aria-label="Open menu" aria-expanded="false"><span>Menu</span></a>
 
     </header> <!-- end s-header -->
 
@@ -143,8 +165,8 @@
 
             <div class="intro-grid"></div>
             <div class="intro-pic">
-                <video autoplay loop muted playsinline>
-                    <source src="images/Hero_Video.mp4" type="video/mp4">
+                <video autoplay loop muted playsinline poster="images/hero-poster.jpg" aria-hidden="true">
+                    <source src="images/hero-loop.mp4" type="video/mp4">
                 </video>
             </div>
 
@@ -172,7 +194,7 @@
                     </p>
 
                     <p>
-                        I'm a video editor, VJ, and documentary filmmaker based in Barcelona, where I studied at the Universidad Nacional de La Plata. Over the past five years I've worked across music videos, live visual performances, interactive installations, and documentary projects — each one a different way of asking the same question: how do images make people feel?
+                        I'm a video editor, VJ, and documentary filmmaker based in Barcelona. I trained in Image Design at the Universidad Nacional de La Plata, in Argentina. Over the past five years I've worked across music videos, live visual performances, interactive installations, and documentary projects — each one a different way of asking the same question: how do images make people feel?
                     </p>
 
                     <p>
@@ -187,10 +209,10 @@
     
             <div class="row about-me__buttons">
                 <div class="column large-half tab-full" data-aos="fade-up">
-                    <a href="https://www.linkedin.com/in/lautaroferrandi/" target="_blank" class="btn btn--stroke full-width">Hire Me</a>
+                    <a href="#contact" class="btn btn--stroke full-width smoothscroll">Hire Me</a>
                 </div>
                 <div class="column large-half tab-full" data-aos="fade-up">
-                    <a href="https://drive.google.com/file/d/1Pn3yrs8o7u8h14fKldFHuf7Ay09ZuEo4/view?usp=sharing" target="_blank" class="btn btn--primary full-width">Download CV</a>
+                    <a href="https://drive.google.com/file/d/1Pn3yrs8o7u8h14fKldFHuf7Ay09ZuEo4/view?usp=sharing" target="_blank" rel="noopener" class="btn btn--primary full-width">Download CV</a>
                 </div>
             </div>
 
@@ -411,9 +433,7 @@
 
         <div class="row heading-block heading-block--center" data-aos="fade-up">
             <div class="column large-full">
-                <h2 class="section-desc">
-                  
-                </h2>
+                <h2 class="section-desc">More work on Behance</h2>
             </div>
         </div> <!-- end heading-block -->
 
@@ -422,7 +442,7 @@
                 <p>
                 Here are some registries of my work. </p>
 
-                <a href="https://www.behance.net/lautaroferrandi" target="_blank" class="btn full-width"> portfolio </a>
+                <a href="https://www.behance.net/lautaroferrandi" target="_blank" rel="noopener" class="btn full-width">Portfolio</a>
             </div>
         </div> <!-- end ad-content -->
 
@@ -436,8 +456,6 @@
         <div class="row heading-block heading-block--center" data-aos="fade-up">
             <div class="column large-full">
                 <h2 class="section-heading section-heading--centerbottom">Selected Works</h2>
-                <p class="section-desc">
-                
             </div>
         </div> <!-- end heading-block -->
 
@@ -449,71 +467,15 @@
                 <div class="masonry__brick" data-aos="fade-up">
                     <div class="item-folio">
                         <div class="item-folio__thumb">
-                            <!-- <a href="images/portfolio/gallery/g-city-building.jpg" class="thumb-link" title="Shutterbug" data-size="1050x700"> -->
-                                <img src="images/portfolio/600x600_Donut.png" 
-                                     srcset="images/portfolio/600x600_Donut.png 1x, images/portfolio/1200x1200_Donut.png 2x" alt="donut_work">
-                            </a>    
-                            <a href="https://www.behance.net/gallery/164205465/Pieland-3D-project" class="item-folio__project-link" title="Project link" target="_blank"></a>
-                        </div>
-    
-                        <div class="item-folio__text">
-                            <h4 class="item-folio__title">
-                                PieLand Bakery
-                            </h4>
-                            <p class="item-folio__cat">
-                                Marketing content
-                            </p>
-                        </div>
-    
-                        <div class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                        </div>
-                    </div>
-                </div> <!-- end masonry__brick -->
-    
-                <div class="masonry__brick" data-aos="fade-up">
-                    <div class="item-folio">
-                        <div class="item-folio__thumb">
-                            <!-- <a href="images/portfolio/gallery/g-woodcraft.jpg" class="thumb-link" title="Woodcraft" data-size="1050x700"> -->
-                                <img src="images/portfolio/600x600_VJ.png" 
-                                     srcset="images/portfolio/600x600_VJ.png 1x, images/portfolio/Vj_1200x1200.png 2x" alt="VJ">
-                            </a>
-                            <a href="https://www.behance.net/gallery/249368071/Real-Time-AI-Visuals-TouchDesigner-Stable-Diffusion" class="item-folio__project-link" title="Project link" target="_blank"></a>
+                            <img src="images/portfolio/donut-600.webp"
+                                 srcset="images/portfolio/donut-600.webp 600w, images/portfolio/donut-1200.webp 1200w"
+                                 sizes="(max-width: 600px) 90vw, 40vw" width="600" height="600" loading="lazy" decoding="async"
+                                 alt="3D render of a pink sprinkled donut for PieLand Bakery">
+                            <a href="https://www.behance.net/gallery/164205465/Pieland-3D-project" class="item-folio__project-link" title="View PieLand Bakery on Behance" aria-label="View PieLand Bakery on Behance" target="_blank" rel="noopener"></a>
                         </div>
                         <div class="item-folio__text">
-                            <h4 class="item-folio__title">
-                                Pink Mountains
-                            </h4>
-                            <p class="item-folio__cat">
-                                VJ Creations
-                            </p>
-                        </div>
-                        <div class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                        </div>
-                    </div>
-                </div> <!-- end masonry__brick -->
-
-                <div class="masonry__brick" data-aos="fade-up">
-                    <div class="item-folio">
-                            
-                        <div class="item-folio__thumb">
-                            <!-- <a href="images/portfolio/gallery/g-beetle.jpg" class="thumb-link" title="The Beetle Car" data-size="1050x700"> -->
-                                <img src="images/portfolio/robor_600x600.png"
-                                     srcset="images/portfolio/robor_600x600.png 1x, images/portfolio/robor_1200x1200.png 2x" alt="NFT_collection">
-                            </a>
-                            <a href="https://www.behance.net/gallery/164383339/Alter-Ego-AI-Image-to-Image-Generation" class="item-folio__project-link" title="Project link" target="_blank"></a>
-                        </div>
-                        <div class="item-folio__text">
-                            <h4 class="item-folio__title">
-                                Alter Ego
-                            </h4>
-                            <p class="item-folio__cat">
-                                NFT Collection
-                            </p>
-                        </div>
-                        <div class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                            <h3 class="item-folio__title">PieLand Bakery</h3>
+                            <p class="item-folio__cat">Marketing content</p>
                         </div>
                     </div>
                 </div> <!-- end masonry__brick -->
@@ -521,70 +483,78 @@
                 <div class="masonry__brick" data-aos="fade-up">
                     <div class="item-folio">
                         <div class="item-folio__thumb">
-                            <!-- <a href="images/portfolio/gallery/g-shutterbug.jpg" class="thumb-link" title="Grow Green" data-size="1050x700"> -->
-                                <img src="images/portfolio/NFT_600x600.png" 
-                                     srcset="images/portfolio/NFT_600x600.png 1x, images/portfolio/NFT_1200x1200.png 2x" alt="NFT">
-                            </a>
-                            <a href="https://www.behance.net/gallery/164209005/NFT-Collection" class="item-folio__project-link" title="Project link" target="_blank"></a>
+                            <img src="images/portfolio/vj-600.webp"
+                                 srcset="images/portfolio/vj-600.webp 600w, images/portfolio/vj-1200.webp 1200w"
+                                 sizes="(max-width: 600px) 90vw, 40vw" width="600" height="600" loading="lazy" decoding="async"
+                                 alt="Real-time AI visual of pink and yellow mountains, made in TouchDesigner">
+                            <a href="https://www.behance.net/gallery/249368071/Real-Time-AI-Visuals-TouchDesigner-Stable-Diffusion" class="item-folio__project-link" title="View Pink Mountains on Behance" aria-label="View Pink Mountains on Behance" target="_blank" rel="noopener"></a>
                         </div>
                         <div class="item-folio__text">
-                            <h4 class="item-folio__title">
-                                Analog meets pixels
-                            </h4>
-                            <p class="item-folio__cat">
-                                NFT Collection
-                            </p>
-                        </div>
-                        <div class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                            <h3 class="item-folio__title">Pink Mountains</h3>
+                            <p class="item-folio__cat">VJ Creations</p>
                         </div>
                     </div>
                 </div> <!-- end masonry__brick -->
 
                 <div class="masonry__brick" data-aos="fade-up">
                     <div class="item-folio">
-                            
                         <div class="item-folio__thumb">
-                            <!-- <a href="images/portfolio/gallery/g-lamp.jpg" class="thumb-link" title="Guitarist" data-size="1050x700"> -->
-                                <img src="images/portfolio/Control_600x600.png" 
-                                     srcset="images/portfolio/Control_600x600.png 1x, images/portfolio/Control_1200x1200.png 2x" alt="Contro_work">
-                            </a>
-                            <a href="https://www.behance.net/gallery/164207521/CONTROL-Interactive-Installation?" class="item-folio__project-link" title="Project link" target="_blank"></a>
+                            <img src="images/portfolio/alter-ego-600.webp"
+                                 srcset="images/portfolio/alter-ego-600.webp 600w, images/portfolio/alter-ego-1200.webp 1200w"
+                                 sizes="(max-width: 600px) 90vw, 40vw" width="600" height="600" loading="lazy" decoding="async"
+                                 alt="Chrome robot with screen goggles from the Alter Ego AI image series">
+                            <a href="https://www.behance.net/gallery/164383339/Alter-Ego-AI-Image-to-Image-Generation" class="item-folio__project-link" title="View Alter Ego on Behance" aria-label="View Alter Ego on Behance" target="_blank" rel="noopener"></a>
                         </div>
                         <div class="item-folio__text">
-                            <h4 class="item-folio__title">
-                               Control
-                            </h4>
-                            <p class="item-folio__cat">
-                               Participative installation
-                            </p>
-                        </div>
-                        <div class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                            <h3 class="item-folio__title">Alter Ego</h3>
+                            <p class="item-folio__cat">NFT Collection</p>
                         </div>
                     </div>
                 </div> <!-- end masonry__brick -->
-        
+
                 <div class="masonry__brick" data-aos="fade-up">
                     <div class="item-folio">
-                            
                         <div class="item-folio__thumb">
-                            <!-- <a href="images/portfolio/gallery/g-fuji.jpg" class="thumb-link" title="Palmeira" data-size="1050x700"> -->
-                                <img src="images/portfolio/LVDDI_600x600.png"
-                                     srcset="images/portfolio/LVDDI_600x600.png 1x, images/portfolio/LVDDLI_1200x1200.png 2x" alt="LVDDLI">
-                            </a>
-                            <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link" target="_blank"></a>
+                            <img src="images/portfolio/analog-pixels-600.webp"
+                                 srcset="images/portfolio/analog-pixels-600.webp 600w, images/portfolio/analog-pixels-1200.webp 1200w"
+                                 sizes="(max-width: 600px) 90vw, 40vw" width="600" height="600" loading="lazy" decoding="async"
+                                 alt="Instant photo print standing on a red surface">
+                            <a href="https://www.behance.net/gallery/164209005/NFT-Collection" class="item-folio__project-link" title="View Analog meets pixels on Behance" aria-label="View Analog meets pixels on Behance" target="_blank" rel="noopener"></a>
                         </div>
                         <div class="item-folio__text">
-                            <h4 class="item-folio__title">
-                                La vida despues de la imagen
-                            </h4>
-                            <p class="item-folio__cat">
-                              Documentary
-                            </p>
+                            <h3 class="item-folio__title">Analog meets pixels</h3>
+                            <p class="item-folio__cat">NFT Collection</p>
                         </div>
-                        <div class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                    </div>
+                </div> <!-- end masonry__brick -->
+
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
+                        <div class="item-folio__thumb">
+                            <img src="images/portfolio/control-600.webp"
+                                 srcset="images/portfolio/control-600.webp 600w, images/portfolio/control-1200.webp 1200w"
+                                 sizes="(max-width: 600px) 90vw, 40vw" width="600" height="600" loading="lazy" decoding="async"
+                                 alt="Red cube with the word CONTROL against the sky">
+                            <a href="https://www.behance.net/gallery/164207521/CONTROL-Interactive-Installation" class="item-folio__project-link" title="View Control on Behance" aria-label="View Control on Behance" target="_blank" rel="noopener"></a>
+                        </div>
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">Control</h3>
+                            <p class="item-folio__cat">Participative installation</p>
+                        </div>
+                    </div>
+                </div> <!-- end masonry__brick -->
+
+                <div class="masonry__brick" data-aos="fade-up">
+                    <div class="item-folio">
+                        <div class="item-folio__thumb">
+                            <img src="images/portfolio/lvddli-600.webp"
+                                 srcset="images/portfolio/lvddli-600.webp 600w, images/portfolio/lvddli-1200.webp 1200w"
+                                 sizes="(max-width: 600px) 90vw, 40vw" width="600" height="600" loading="lazy" decoding="async"
+                                 alt="Title card of the documentary La vida después de la imagen">
+                        </div>
+                        <div class="item-folio__text">
+                            <h3 class="item-folio__title">La vida después de la imagen</h3>
+                            <p class="item-folio__cat">Documentary</p>
                         </div>
                     </div>
                 </div> <!-- end masonry__brick -->
@@ -594,13 +564,6 @@
         </div> <!-- end masonry-wrap -->
 
     </section> <!-- end s-work -->
-
-
-    <!-- testimonies
-    ================================================== -->
-    
-    
-    <!-- end s-testimonials -->
 
 
     <!-- contact
@@ -616,7 +579,7 @@
         <div class="row contact-main" data-aos="fade-up">
             <div class="column large-full">
                 <p class="contact-email">
-                    <a href="https://mail.google.com/mail/?view=cm&to=lautaroferrandi@gmail.com&su=Hi there!&body=Hello Lautaro," target="_blank">Hi there! </a>
+                    <a href="mailto:lautaroferrandi@gmail.com?subject=Hi%20Lautaro">Hi there!</a>
                 </p>
                 <p class="section-desc">
                 Let's work together and build
@@ -629,16 +592,16 @@
         <div class="row contact-infos" data-aos="fade-up" data-aos-anchor=".contact-main">
 
             <div class="column large-5 medium-full contact-phone">
-                <h4>Call Me</h4>
-                <a href="https://t.me/lautaroferrandi">Telegram</a>
+                <h4>Message Me</h4>
+                <a href="https://t.me/lautaroferrandi" target="_blank" rel="noopener">Telegram</a>
             </div>
 
             <div class="column large-7 medium-full contact-social">
                 <h4>Social</h4>
                 <ul>
-                    <li><a href="https://www.linkedin.com/in/lautaroferrandi/" target=_blank title="linkedin">LinkedIn</a></li>
-                    <li><a href="https://twitter.com/LautaroVolcan" title="X" target=_blank>X</a></li>
-                    <li><a href="https://www.instagram.com/lautarovolcan/?hl=es-la" title="Instagram" target=_blank >Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/in/lautaroferrandi/" target="_blank" rel="noopener" title="linkedin">LinkedIn</a></li>
+                    <li><a href="https://twitter.com/LautaroVolcan" title="X" target="_blank" rel="noopener">X</a></li>
+                    <li><a href="https://www.instagram.com/lautarovolcan/?hl=es-la" title="Instagram" target="_blank" rel="noopener" >Instagram</a></li>
                 </ul>
             </div>
 
@@ -652,55 +615,15 @@
     <footer>
         <div class="row">
             <div class="column large-full ss-copyright">
-                <span>© Copyright LautaroFerrandi</span> 
-                <span>Design by  <a href="https://www.linkedin.com/in/lautaroferrandi/" target="_blank"> LautaroFerrandi</a></span>
+                <span>© Lautaro Ferrandi</span>
+                <span>Design by <a href="https://www.styleshout.com/" target="_blank" rel="noopener">StyleShout</a>, customized by Lautaro Ferrandi</span>
             </div>            
 
             <div class="ss-go-top">
-                <a class="smoothscroll" title="Back to Top" href="#top"></a>
+                <a class="smoothscroll" title="Back to Top" href="#top" aria-label="Back to top"></a>
             </div>
         </div>
     </footer>
-
-
-    <!-- photoswipe background
-    ================================================== -->
-    <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
-
-        <div class="pswp__bg"></div>
-        <div class="pswp__scroll-wrap">
-
-            <div class="pswp__container">
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-            </div>
-
-            <div class="pswp__ui pswp__ui--hidden">
-                <div class="pswp__top-bar">
-                    <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
-                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
-                    "Zoom in/out"></button>
-                    <div class="pswp__preloader">
-                        <div class="pswp__preloader__icn">
-                            <div class="pswp__preloader__cut">
-                                <div class="pswp__preloader__donut"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                    <div class="pswp__share-tooltip"></div>
-                </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
-                "Next (arrow right)"></button>
-                <div class="pswp__caption">
-                    <div class="pswp__caption__center"></div>
-                </div>
-            </div>
-
-        </div>
-
-    </div><!-- end photoSwipe background -->
 
 
     <!-- Java Script
@@ -716,6 +639,7 @@
             var splash = document.getElementById('splash');
 
             btn.addEventListener('click', function () {
+                try { sessionStorage.setItem('lf-connected', '1'); } catch (e) {}
                 splash.classList.add('fade-out');
                 setTimeout(function () { splash.style.display = 'none'; }, 400);
             });
@@ -723,3 +647,4 @@
     </script>
 
 </body>
+</html>

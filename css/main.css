@@ -2524,7 +2524,7 @@ input::-moz-focus-inner {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  background-image: url(../images/first_test.png);
+  background-image: url(../images/capabilities-bg.webp);
   color: rgba(255, 255, 255, 0.7);
   position: relative;
 }
@@ -3630,3 +3630,24 @@ html[data-useragent*='rv:11.0'] .ss-go-top::after {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+
+/* ===================================================================
+ * # accessibility additions
+ * ------------------------------------------------------------------- */
+.intro-text h3 {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
