@@ -106,16 +106,6 @@ const idle = (fn: () => void) =>
   'requestIdleCallback' in window ? window.requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 300);
 
 if (webglOk()) {
-  const hero = document.querySelector<HTMLElement>('.hero');
-  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
-  if (hero && video) {
-    idle(() =>
-      import('./hero-particles').then(({ initHeroParticles }) =>
-        initHeroParticles({ stage: hero, video, poster: video.poster }),
-      ),
-    );
-  }
-
   const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-card]'));
   if (cards.length && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     idle(() => import('./grid-crt').then(({ initGridCrt }) => initGridCrt(cards)));
