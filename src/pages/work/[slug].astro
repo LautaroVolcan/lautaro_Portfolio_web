@@ -47,7 +47,7 @@ const facts = [
 
       <figure class="project__hero">
         {embed ? (
-          <div class="embed">
+          <div class="embed" style={`--ratio: ${p.videoRatio}`} data-ratio={p.videoRatio}>
             <iframe src={embed} title={`${p.title} — video`} allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
         ) : p.loop ? (
@@ -61,11 +61,40 @@ const facts = [
         <Content />
       </div>
 
-      {p.gallery.length > 0 && (
-        <div class="gallery">
-          {p.gallery.map((g) => (
-            <Image src={g.src} alt={g.alt} widths={[720, 1200, 1600]} sizes="(max-width: 1440px) 92vw, 1300px" />
-          ))}
+      {p.blocks.length > 0 && (
+        <div class="blocks">
+          {p.blocks.map((b) => {
+            if (b.type === 'text') {
+              return <div class="prose block-text">{b.body.split(/\n\s*\n/).map((para) => <p>{para.trim()}</p>)}</div>;
+            }
+            if (b.type === 'image') {
+              return (
+                <figure class:list={['block-image', { 'is-wide': b.wide }]}>
+                  <Image src={b.src} alt={b.alt} widths={[720, 1200, 1800, 2400]} sizes={b.wide ? '100vw' : '(max-width: 1440px) 92vw, 1300px'} />
+                  {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+                </figure>
+              );
+            }
+            if (b.type === 'images') {
+              return (
+                <figure class="block-images" style={`--cols: ${b.items.length}`}>
+                  {b.items.map((it) => (
+                    <Image src={it.src} alt={it.alt} widths={[480, 720, 1200]} sizes={`(max-width: 700px) 92vw, ${Math.round(92 / b.items.length)}vw`} />
+                  ))}
+                  {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+                </figure>
+              );
+            }
+            const src = embedUrl(b.url);
+            return src ? (
+              <figure class="block-video">
+                <div class="embed" style={`--ratio: ${b.ratio}`} data-ratio={b.ratio}>
+                  <iframe src={src} title={b.title ?? `${p.title} — video`} allow="autoplay; fullscreen; picture-in-picture; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
+                </div>
+                {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+              </figure>
+            ) : null;
+          })}
         </div>
       )}
 

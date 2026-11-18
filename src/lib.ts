@@ -5,9 +5,15 @@ export async function getProjects() {
   return all.sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
 }
 
-/** Turns a Vimeo/YouTube page URL into an embeddable player URL. Returns null for anything else. */
+/** Turns a Vimeo/YouTube/Adobe (Behance)/Sketchfab URL into an embeddable player URL. Returns null for anything else. */
 export function embedUrl(url: string): string | null {
   const u = new URL(url);
+  // Behance-hosted videos (Adobe Creative Cloud player) and Sketchfab models are already embed URLs.
+  if (u.hostname === 'www-ccv.adobe.io' && u.pathname.includes('/embed')) return url;
+  if (u.hostname === 'sketchfab.com') {
+    const id = u.pathname.match(/models\/([0-9a-f]+)/)?.[1] ?? u.pathname.match(/-([0-9a-f]{32})$/)?.[1];
+    return id ? `https://sketchfab.com/models/${id}/embed?autostart=0&ui_theme=dark` : null;
+  }
   if (u.hostname.includes('vimeo.com')) {
     const id = u.pathname.split('/').filter(Boolean).pop();
     return id ? `https://player.vimeo.com/video/${id}?dnt=1&title=0&byline=0&portrait=0` : null;
