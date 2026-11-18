@@ -20,7 +20,7 @@ const p = project.data;
       loading={index < 3 ? 'eager' : 'lazy'}
       data-card-img
     />
-    {p.loop && <video data-card-loop src={p.loop} muted loop playsinline preload="none" aria-hidden="true"></video>}
+    {p.loop && <video data-card-loop src={p.loop} muted loop playsinline preload="none" crossorigin="anonymous" aria-hidden="true"></video>}
   </div>
   <div class="card__meta">
     <span class="card__num mono">{String(index + 1).padStart(3, '0')}</span>

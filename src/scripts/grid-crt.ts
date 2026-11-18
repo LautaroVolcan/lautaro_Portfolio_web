@@ -108,31 +108,46 @@ export function initGridCrt(cards: HTMLElement[]) {
   });
   scene.add(new Mesh(new PlaneGeometry(2, 2), material));
 
-  const textures = new Map<HTMLElement, Texture>();
-  function textureFor(card: HTMLElement): Texture | null {
-    const video = card.querySelector<HTMLVideoElement>('[data-card-loop]');
-    if (video && video.readyState >= 2) {
-      const vt = new VideoTexture(video);
-      vt.colorSpace = SRGBColorSpace;
-      material.uniforms.uImageAspect.value = video.videoWidth / video.videoHeight || 1;
-      return vt;
-    }
-    if (textures.has(card)) return textures.get(card)!;
+  // Textures are built from a separate CORS-mode copy of each cover, so the effect also works
+  // when images are served from another host (a CDN, a preview server that redirects).
+  // If a cover can't be read safely, that card simply gets no effect: never a black box.
+  const textures = new Map<HTMLElement, { tex: Texture; aspect: number }>();
+  function prepare(card: HTMLElement) {
     const img = card.querySelector<HTMLImageElement>('[data-card-img]');
-    if (!img || !img.complete || !img.naturalWidth) return null;
-    // Copy into a canvas at natural size: uploading the <img> directly trips over its
-    // width/height attributes (they differ from the srcset candidate actually loaded).
-    const off = document.createElement('canvas');
-    off.width = img.naturalWidth;
-    off.height = img.naturalHeight;
-    off.getContext('2d')!.drawImage(img, 0, 0);
-    const t = new CanvasTexture(off);
-    t.colorSpace = SRGBColorSpace;
-    t.minFilter = LinearFilter;
-    t.generateMipmaps = false;
-    t.needsUpdate = true;
-    textures.set(card, t);
-    return t;
+    if (!img) return;
+    const src = img.currentSrc || img.src;
+    if (!src) return;
+    const copy = new Image();
+    copy.crossOrigin = 'anonymous';
+    copy.decoding = 'async';
+    copy.onload = () => {
+      const off = document.createElement('canvas');
+      off.width = copy.naturalWidth;
+      off.height = copy.naturalHeight;
+      const ctx = off.getContext('2d');
+      if (!ctx) return;
+      try {
+        ctx.drawImage(copy, 0, 0);
+        ctx.getImageData(0, 0, 1, 1); // throws if the canvas is tainted
+      } catch {
+        return;
+      }
+      const tex = new CanvasTexture(off);
+      tex.colorSpace = SRGBColorSpace;
+      tex.minFilter = LinearFilter;
+      tex.generateMipmaps = false;
+      textures.set(card, { tex, aspect: copy.naturalWidth / copy.naturalHeight });
+    };
+    copy.src = src;
+  }
+  function textureFor(card: HTMLElement): { tex: Texture; aspect: number } | null {
+    const video = card.querySelector<HTMLVideoElement>('[data-card-loop]');
+    if (video && video.readyState >= 2 && video.classList.contains('is-playing')) {
+      const tex = new VideoTexture(video);
+      tex.colorSpace = SRGBColorSpace;
+      return { tex, aspect: video.videoWidth / video.videoHeight || 1 };
+    }
+    return textures.get(card) ?? null;
   }
 
   let active: HTMLElement | null = null;
@@ -169,15 +184,18 @@ export function initGridCrt(cards: HTMLElement[]) {
   }
 
   cards.forEach((card) => {
+    const img = card.querySelector<HTMLImageElement>('[data-card-img]');
+    if (img?.complete) prepare(card);
+    else img?.addEventListener('load', () => prepare(card), { once: true });
+
     card.addEventListener('pointerenter', (e) => {
       if (e.pointerType !== 'mouse') return;
-      const tex = textureFor(card);
-      if (!tex) return;
+      const t = textureFor(card);
+      if (!t) return;
       active?.classList.remove('crt-active');
       active = card;
-      material.uniforms.uTex.value = tex;
-      const img = card.querySelector<HTMLImageElement>('[data-card-img]');
-      if (!(tex instanceof VideoTexture) && img) material.uniforms.uImageAspect.value = img.naturalWidth / img.naturalHeight;
+      material.uniforms.uTex.value = t.tex;
+      material.uniforms.uImageAspect.value = t.aspect;
       target = 1;
       place();
       canvas.classList.add('is-on');
