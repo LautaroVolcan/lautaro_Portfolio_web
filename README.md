@@ -13,7 +13,7 @@ npm run preview   # sirve dist/ para revisarlo antes de publicar
 
 ## Agregar un proyecto
 
-1. Guarda la imagen de portada en `src/assets/projects/` (cuadrada, ≥ 1200 px; PNG o JPG; Astro genera WebP/AVIF solo).
+1. Crea la carpeta `src/assets/projects/<slug>/` con la portada y las imágenes (JPG o PNG, máx. ~2400 px; Astro genera WebP/AVIF solo).
 2. Crea `src/content/projects/<slug>.md`. El nombre del archivo es la URL: `control.md` → `/work/control/`.
 3. Frontmatter (los campos con `?` son opcionales):
 
@@ -27,20 +27,32 @@ client?: Marca
 role?: Dirección, edición
 tools?: [Premiere Pro, After Effects]
 order: 1                       # menor = aparece antes
-cover: ../../assets/projects/mi-proyecto.jpg
+cover: ../../assets/projects/mi-proyecto/cover.jpg
 coverAlt: Descripción de la imagen
-loop?: /video/mi-proyecto-loop.mp4    # 4–6 s, sin audio, < 2 MB, en public/video/
-video?: https://vimeo.com/123456789   # pieza completa (Vimeo o YouTube)
-gallery?:
-  - src: ../../assets/projects/mi-proyecto-02.jpg
+loop?: /video/mi-proyecto-loop.mp4    # 4–6 s, sin audio, < 2 MB, en public/video/ (se reproduce al pasar el mouse en la grilla)
+video?: https://vimeo.com/123456789   # video principal, arriba de todo (Vimeo, YouTube, Behance/Adobe o Sketchfab)
+videoRatio?: 9/16              # 16/9 por defecto; 9/16, 1/1, 3/4, 4/5 para verticales/cuadrados
+blocks?:                       # el cuerpo del caso, en orden, después del texto principal
+  - type: image
+    src: ../../assets/projects/mi-proyecto/01.jpg
     alt: Frame del proceso
-external?:
-  label: Archive on Behance
-  url: https://www.behance.net/...
+    wide?: true                # a todo el ancho
+    caption?: Un pie de foto
+  - type: images               # 2 o 3 imágenes lado a lado
+    items:
+      - src: ../../assets/projects/mi-proyecto/02.jpg
+        alt: Antes
+      - src: ../../assets/projects/mi-proyecto/03.jpg
+        alt: Después
+  - type: video
+    url: https://www.youtube.com/watch?v=xxxx
+    ratio?: 16/9
+  - type: text
+    body: Un párrafo entre imágenes.
 draft?: true                   # lo oculta sin borrarlo
 ---
 
-Texto del proyecto en Markdown: contexto → enfoque → resultado.
+Texto principal del proyecto en Markdown: contexto → enfoque → resultado. Puedes usar `## Subtítulos`.
 ```
 
 4. `git add`, commit, push a `main` → se publica solo en ~1 minuto.
