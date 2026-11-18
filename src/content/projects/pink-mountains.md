@@ -9,6 +9,11 @@ cover: ../../assets/projects/pink-mountains.png
 coverAlt: Saturated pink, yellow and blue landscape generated in real time
 video: https://www-ccv.adobe.io/v1/player/ccv/8ycQZc6R4n6/embed?api_key=behance1&bgcolor=%23191919
 videoRatio: 9/16
+blocks:
+  - type: image
+    src: ../../assets/projects/pink-mountains/01.jpg
+    alt: Frame from the real-time system — a mountain range rendered in saturated pink, yellow and blue
+    wide: true
 ---
 
 A generative system that merges real-time image synthesis with artificial intelligence, built on TouchDesigner and integrated with Stable Diffusion. The pipeline processes live signals and translates them into latent images that update continuously, creating an organic and unpredictable visual stream where every frame is unique and unrepeatable.

@@ -6,11 +6,10 @@ year: 2023
 client: Linxes
 role: Director
 order: 2
-cover: ../../assets/projects/la-vida-despues-de-la-imagen.png
-coverAlt: Still from the Linxes music video Cicatrices
+cover: ../../assets/projects/linxes/cover.jpg
+coverAlt: "Title card — Cicatrices, produced by Lautaro Volcán"
 video: https://www.youtube.com/watch?v=zYXI4V7X6D4
 videoRatio: 16/9
-draft: true
 ---
 
 "Cicatrices" is a music video directed by Lautaro Ferrandi in collaboration with the band Linxes. It delves into the intricate relationship between colors, figures, and characters, resulting in an exploration of audio-visual aesthetics.

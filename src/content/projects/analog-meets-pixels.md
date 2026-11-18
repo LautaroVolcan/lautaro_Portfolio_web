@@ -9,6 +9,15 @@ cover: ../../assets/projects/analog-meets-pixels.png
 coverAlt: Instant photo print standing on a red surface
 video: https://www-ccv.adobe.io/v1/player/ccv/4QsEhe4Gkpt/embed?api_key=behance1&bgcolor=%23191919
 videoRatio: 1/1
+blocks:
+  - type: images
+    items:
+      - src: ../../assets/projects/analog-meets-pixels/01.jpg
+        alt: 3D slide mount holding a landscape photograph, on a red background
+      - src: ../../assets/projects/analog-meets-pixels/02.jpg
+        alt: Empty 3D slide mount on a red background
+      - src: ../../assets/projects/analog-meets-pixels/03.jpg
+        alt: 3D slide mount holding a photograph of a tree in bloom
 ---
 
 In this ongoing project, I seek to explore the intersection of analog and digital media in the emerging world of NFTs. Through the creation of a series of NFTs, each featuring a 3D render of a classic slide, I aim to pay homage to the rich history of analog photography while pushing the boundaries of digital art.

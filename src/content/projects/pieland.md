@@ -10,6 +10,9 @@ coverAlt: 3D render of a pink donut with colorful sprinkles falling around it
 video: https://www-ccv.adobe.io/v1/player/ccv/RNidzS4kWKr/embed?api_key=behance1&bgcolor=%23191919
 videoRatio: 3/4
 blocks:
+  - type: image
+    src: ../../assets/projects/pieland/01.jpg
+    alt: Pink donut with sprinkles floating in a pink space
   - type: video
     url: https://sketchfab.com/models/ed7d30dda72148eaac69c0996eca31ce/embed
     title: PieLand donut — interactive 3D model

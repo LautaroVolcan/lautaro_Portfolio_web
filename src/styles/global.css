@@ -296,7 +296,7 @@ p { margin: 0 0 1.1em; }
 .blocks { display: grid; gap: clamp(1.5rem, 4vw, 4rem); margin-top: clamp(3rem, 8vw, 6rem); }
 .blocks figure { margin: 0; }
 .blocks figcaption { color: var(--muted); margin-top: 0.75rem; }
-.block-image img { width: 100%; }
+.block-image img { width: 100%; max-height: 92vh; object-fit: contain; }
 .block-image.is-wide { margin-inline: calc(var(--pad) * -1); }
 .block-images { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: clamp(0.75rem, 2vw, 2rem); }
 .block-images img { width: 100%; height: 100%; object-fit: cover; }

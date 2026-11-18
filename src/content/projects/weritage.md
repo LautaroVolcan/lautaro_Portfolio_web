@@ -6,11 +6,10 @@ year: 2023
 client: Weritage
 role: Art direction, photography, editing
 order: 4
-cover: ../../assets/projects/la-vida-despues-de-la-imagen.png
-coverAlt: Still from the Weritage mini-documentary
+cover: ../../assets/projects/weritage/cover.jpg
+coverAlt: Weritage logo over a workbench with labels and stamps
 video: https://www-ccv.adobe.io/v1/player/ccv/GLRepb7jKxs/embed?api_key=behance1&bgcolor=%23191919
 videoRatio: 16/9
-draft: true
 ---
 
 Step into the world of Weritage, where craftsmanship meets sustainability. In this mini-documentary and interview series we dive into the heart of the clothing brand. Weritage, driven by a philosophy of minimal environmental impact and zero-waste fashion, takes you on a journey reminiscent of a quaint French workshop in the 1950s.

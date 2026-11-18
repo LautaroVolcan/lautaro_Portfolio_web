@@ -5,11 +5,14 @@ category: 3D / Industrial design
 year: 2023
 tools: [Blender]
 order: 8
-cover: ../../assets/projects/la-vida-despues-de-la-imagen.png
-coverAlt: 3D render of the Søborg wood chair
+cover: ../../assets/projects/soborg-chair/01.jpg
+coverAlt: 3D render of the Søborg wood chair against a teal wall
 video: https://www-ccv.adobe.io/v1/player/ccv/F2oj7Zt8xJ7/embed?api_key=behance1&bgcolor=%23191919
 videoRatio: 1/1
-draft: true
+blocks:
+  - type: image
+    src: ../../assets/projects/soborg-chair/01.jpg
+    alt: 3D render of the Søborg wood chair against a teal wall
 ---
 
 The Søborg wood chair is a classic example of Danish design that has been in production since the 1950s: a minimalist chair made entirely of wood, with clean lines and elegant curves. This project studies its design using 3D software and builds a render of the chair.

@@ -9,6 +9,20 @@ cover: ../../assets/projects/control.png
 coverAlt: Red cube with the word CONTROL printed on its sides, against the sky
 video: https://www-ccv.adobe.io/v1/player/ccv/4qeobwqSeji/embed?api_key=behance1&bgcolor=%23191919
 videoRatio: 16/9
+blocks:
+  - type: image
+    src: ../../assets/projects/control/cover.jpg
+    alt: CONTROL — experiencia interactiva VR, title card
+    wide: true
+  - type: image
+    src: ../../assets/projects/control/02.jpg
+    alt: The virtual environment on screen and visitors trying the installation with a VR headset
+  - type: image
+    src: ../../assets/projects/control/03.jpg
+    alt: The red CONTROL cube in the virtual space, and visitors in the room
+  - type: image
+    src: ../../assets/projects/control/04.jpg
+    alt: A green grid floor in the virtual space, and visitors with the headset
 ---
 
 This project revolves around the creation of an interactive virtual reality installation, which we propose as an open work of art, wherein each user will experience it in a unique way, based on their individual interpretation.

@@ -7,6 +7,33 @@ tools: [Stable Diffusion]
 order: 6
 cover: ../../assets/projects/alter-ego.png
 coverAlt: Chrome robot with screen goggles against an orange background
+blocks:
+  - type: images
+    items:
+      - src: ../../assets/projects/alter-ego/01.jpg
+        alt: Source portrait of Lautaro against an orange background
+      - src: ../../assets/projects/alter-ego/06.jpg
+        alt: Generated alter ego — a gold robot with screen goggles
+    caption: Input photo and one of its alter egos
+  - type: images
+    items:
+      - src: ../../assets/projects/alter-ego/02.jpg
+        alt: Alter ego with a gold visor helmet
+      - src: ../../assets/projects/alter-ego/03.jpg
+        alt: Alter ego with bronze metallic skin
+      - src: ../../assets/projects/alter-ego/04.jpg
+        alt: Alter ego as a robot with red goggles
+  - type: images
+    items:
+      - src: ../../assets/projects/alter-ego/05.jpg
+        alt: Alter ego as a smiling gold robot
+      - src: ../../assets/projects/alter-ego/07.jpg
+        alt: Alter ego as a red and gold robot
+      - src: ../../assets/projects/alter-ego/08.jpg
+        alt: Alter ego with a copper robot face
+  - type: image
+    src: ../../assets/projects/alter-ego/09.jpg
+    alt: Alter ego with curly hair and a gold half-mask
 ---
 
 The Alter Ego project aims to explore the possibilities of AI image-to-image generation technology using Stable Diffusion. Using the SD model, the project generates a series of alter egos of the creator, each unique and representative of different aspects of the self.
