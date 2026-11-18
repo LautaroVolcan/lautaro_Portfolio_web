@@ -106,8 +106,15 @@ const idle = (fn: () => void) =>
   'requestIdleCallback' in window ? window.requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 300);
 
 if (webglOk()) {
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
   const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-card]'));
-  if (cards.length && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    idle(() => import('./grid-crt').then(({ initGridCrt }) => initGridCrt(cards)));
+  const wantsCrtGrid = cards.length > 0 && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if ((hero && video) || wantsCrtGrid) {
+    // load right away: the hero is the first thing on screen
+    import('./webgl').then(({ initCrtHero, initGridCrt }) => {
+      if (hero && video) initCrtHero({ stage: hero, video });
+      if (wantsCrtGrid) idle(() => initGridCrt(cards));
+    });
   }
 }

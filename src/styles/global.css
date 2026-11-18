@@ -324,6 +324,31 @@ p { margin: 0 0 1.1em; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
+/* --- WebGL hero: CRT monitor over a liquid gradient ------------------------- */
+
+.hero__canvas {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%;
+  touch-action: pan-y;
+}
+.hero.has-webgl .hero__stage { opacity: 0; pointer-events: none; }
+.hero.has-webgl .hero__bar { color: rgba(242, 239, 233, 0.75); }
+.hero.has-webgl .hero__greeting { color: var(--fg); }
+.hero.has-webgl .hero__greeting::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 0.7em; border-radius: 50%; background: var(--red); vertical-align: 0.05em; }
+@media (max-width: 900px) {
+  .hero.has-webgl { align-items: end; padding-bottom: 5.5rem; }
+  .hero.has-webgl .hero__inner { padding-top: 46svh; }
+}
+
+/* without WebGL: the same palette as a soft static gradient behind the video */
+.hero__grid {
+  background:
+    radial-gradient(40% 50% at 30% 40%, rgba(240, 106, 160, 0.55), transparent 70%),
+    radial-gradient(45% 55% at 70% 60%, rgba(255, 122, 46, 0.5), transparent 70%),
+    radial-gradient(35% 45% at 55% 20%, rgba(63, 184, 168, 0.45), transparent 70%);
+  filter: blur(30px);
+}
+
 /* --- WebGL CRT layer on the work grid (added only when WebGL initialises) --- */
 
 .crt-canvas {
