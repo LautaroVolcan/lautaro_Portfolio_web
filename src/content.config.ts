@@ -65,11 +65,12 @@ const projects = defineCollection({
             /**
              * A node-graph style diagram of a pipeline: columns left to right, each with a few cards (thumbnail + label).
              * Good for showing how an AI workflow is wired (references feeding generators).
+             * An item without `src` is drawn as a text card (use `text` for one line of what it does).
              */
             z.object({
               type: z.literal('nodes'),
               columns: z
-                .array(z.object({ label: z.string(), items: z.array(z.object({ src: image(), label: z.string() })).min(1) }))
+                .array(z.object({ label: z.string(), items: z.array(z.object({ src: image().optional(), text: z.string().optional(), label: z.string() })).min(1) }))
                 .min(2),
               caption: z.string().optional(),
             }),
