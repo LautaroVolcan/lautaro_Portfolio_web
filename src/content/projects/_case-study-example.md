@@ -11,6 +11,12 @@ order: 99
 draft: true
 cover: ../../assets/projects/pieland.png
 coverAlt: test
+# Hero: 3D carousel with the final pieces (2 or more images; loops, arrows, swipe, autoplay).
+# Leave it out to show the cover / video instead.
+gallery:
+  - { src: ../../assets/projects/eight/12-frame-cap.jpg, alt: Final piece 1 }
+  - { src: ../../assets/projects/eight/11-frame-socks.jpg, alt: Final piece 2 }
+  - { src: ../../assets/projects/eight/13-frame-kitchen.jpg, alt: Final piece 3 }
 caseStudy:
   kind: spec
   brief: Launch a new product line on Meta and TikTok with a set of short ads that work without sound.
