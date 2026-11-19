@@ -308,3 +308,14 @@ p { margin: 0 0 1.1em; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* --- WebGL CRT layer on the work grid (added only when WebGL initialises) --- */
+
+.crt-canvas {
+  position: fixed; top: 0; left: 0; z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+.crt-canvas.is-on { opacity: 1; }
+.card.crt-active .card__media img { transform: none; }
