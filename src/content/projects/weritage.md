@@ -2,10 +2,11 @@
 title: Weritage
 summary: A mini-documentary and interview series about Weritage, a zero-waste clothing brand with the spirit of a 1950s French workshop.
 category: Documentary / Branded content
+section: films
 year: 2023
 client: Weritage
 role: Art direction, photography, editing
-order: 4
+order: 1
 cover: ../../assets/projects/weritage/cover.jpg
 coverAlt: Weritage logo over a workbench with labels and stamps
 video: https://www-ccv.adobe.io/v1/player/ccv/GLRepb7jKxs/embed?api_key=behance1&bgcolor=%23191919

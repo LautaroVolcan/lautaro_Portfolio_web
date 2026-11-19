@@ -2,9 +2,10 @@
 title: Analog meets pixels
 summary: 3D renders of classic Kodak slides, each holding a photograph I shot — analog and digital in one object.
 category: 3D / NFT collection
+section: art
 year: 2023
 tools: [3D modeling, Photography]
-order: 7
+order: 5
 cover: ../../assets/projects/analog-meets-pixels.png
 coverAlt: Instant photo print standing on a red surface
 video: https://www-ccv.adobe.io/v1/player/ccv/4QsEhe4Gkpt/embed?api_key=behance1&bgcolor=%23191919

@@ -2,9 +2,10 @@
 title: Søborg Chair Study
 summary: A 3D study of the Søborg wood chair, the Danish 1950s classic — from research to a finished virtual piece.
 category: 3D / Industrial design
+section: art
 year: 2023
 tools: [Blender]
-order: 8
+order: 6
 cover: ../../assets/projects/soborg-chair/01.jpg
 coverAlt: 3D render of the Søborg wood chair against a teal wall
 video: https://www-ccv.adobe.io/v1/player/ccv/F2oj7Zt8xJ7/embed?api_key=behance1&bgcolor=%23191919

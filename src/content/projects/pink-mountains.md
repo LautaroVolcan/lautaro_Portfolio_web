@@ -2,6 +2,7 @@
 title: Pink Mountains
 summary: Real-time AI visuals — a generative system built in TouchDesigner with Stable Diffusion.
 category: VJ / Real-time visuals
+section: art
 year: 2026
 tools: [TouchDesigner, Stable Diffusion, img2img / latent diffusion, API/socket integration]
 order: 1

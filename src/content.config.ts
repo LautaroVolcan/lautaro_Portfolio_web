@@ -10,6 +10,25 @@ const projects = defineCollection({
       /** One line shown under the title on the project page and in link previews. */
       summary: z.string(),
       category: z.string(),
+      /** Which tab of Work the project lives in: art, films or commercial. */
+      section: z.enum(['art', 'films', 'commercial']),
+      /**
+       * Case study, for commercial work. Every field is optional; the page shows the parts
+       * that are filled in, in this order: brief → idea → process → deliverables → results → credits.
+       */
+      caseStudy: z
+        .object({
+          /** Be honest about what the project was: shown as a small tag next to the client. */
+          kind: z.enum(['client', 'spec', 'pitch', 'concept']).default('client'),
+          brief: z.string().optional(),
+          challenge: z.string().optional(),
+          idea: z.string().optional(),
+          process: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+          deliverables: z.array(z.string()).default([]),
+          results: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
+          credits: z.array(z.object({ role: z.string(), name: z.string() })).default([]),
+        })
+        .optional(),
       year: z.number().int().optional(),
       client: z.string().optional(),
       role: z.string().optional(),
@@ -24,6 +43,8 @@ const projects = defineCollection({
       /** Optional main video shown first on the project page: Vimeo, YouTube, Adobe/Behance (ccv) or Sketchfab URL. */
       video: z.string().url().optional(),
       /** Aspect ratio of the main video, e.g. "16/9" (default), "9/16", "1/1", "4/3". */
+      /** Optional: replaces the hero with a 3D carousel of these images (loops, with arrows). */
+      gallery: z.array(z.object({ src: image(), alt: z.string() })).default([]),
       videoRatio: z.string().default('16/9'),
       /**
        * The body of the case study, in order, after the main text. Each block is one of:
@@ -39,6 +60,19 @@ const projects = defineCollection({
             z.object({ type: z.literal('images'), items: z.array(z.object({ src: image(), alt: z.string() })).min(2).max(3), caption: z.string().optional() }),
             z.object({ type: z.literal('video'), url: z.string().url(), ratio: z.string().default('16/9'), title: z.string().optional(), caption: z.string().optional() }),
             z.object({ type: z.literal('text'), body: z.string() }),
+            /** A small section title inside the blocks, e.g. "02 · Product". */
+            z.object({ type: z.literal('heading'), label: z.string().optional(), title: z.string(), text: z.string().optional() }),
+            /**
+             * A node-graph style diagram of a pipeline: columns left to right, each with a few cards (thumbnail + label).
+             * Good for showing how an AI workflow is wired (references feeding generators).
+             */
+            z.object({
+              type: z.literal('nodes'),
+              columns: z
+                .array(z.object({ label: z.string(), items: z.array(z.object({ src: image(), label: z.string() })).min(1) }))
+                .min(2),
+              caption: z.string().optional(),
+            }),
           ]),
         )
         .default([]),

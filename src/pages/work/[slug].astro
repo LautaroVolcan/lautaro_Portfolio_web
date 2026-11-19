@@ -4,17 +4,26 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Label from '../../components/Label.astro';
 import { getProjects, embedUrl } from '../../lib';
+import { sections } from '../../data/site';
 
 export async function getStaticPaths() {
   const projects = await getProjects();
-  return projects.map((project, i) => ({
-    params: { slug: project.id },
-    props: { project, index: i, next: projects[(i + 1) % projects.length] },
-  }));
+  return projects.map((project) => {
+    // number and "next project" run inside the project's own section (Art, Films, Commercial)
+    const same = projects.filter((q) => q.data.section === project.data.section);
+    const i = same.indexOf(project);
+    return {
+      params: { slug: project.id },
+      props: { project, index: i, next: same.length > 1 ? same[(i + 1) % same.length] : null },
+    };
+  });
 }
 
 const { project, index, next } = Astro.props;
 const p = project.data;
+const section = sections.find((s) => s.id === p.section)!;
+const cs = p.caseStudy;
+const kindLabel = { client: 'Client project', spec: 'Spec work', pitch: 'Pitch', concept: 'Concept' } as const;
 const { Content } = await render(project);
 const embed = p.video ? embedUrl(p.video) : null;
 const og = await getImage({ src: p.cover, width: 1200, format: 'jpg', quality: 82 });
@@ -23,6 +32,7 @@ const facts = [
   ['Category', p.category],
   ['Year', p.year],
   ['Client', p.client],
+  ['Type', cs ? kindLabel[cs.kind] : undefined],
   ['Role', p.role],
   ['Tools', p.tools.length ? p.tools.join(', ') : undefined],
 ].filter(([, v]) => v !== undefined && v !== '');
@@ -31,8 +41,8 @@ const facts = [
 <Base title={`${p.title} — Lautaro Ferrandi`} description={p.summary} image={og.src} current="work">
   <article class="project">
     <div class="wrap">
-      <a class="back mono" href="/#work">← All work</a>
-      <Label n={index + 1} text={p.category} />
+      <a class="back mono" href={`/#work-${p.section}`}>← {section.label}</a>
+      <Label n={index + 1} text={`${section.label} · ${p.category}`} />
       <h1>{p.title}</h1>
       <p class="project__summary">{p.summary}</p>
 
@@ -45,8 +55,21 @@ const facts = [
         ))}
       </dl>
 
-      <figure class="project__hero">
-        {embed ? (
+      <figure class:list={['project__hero', { 'project__hero--carousel': p.gallery.length > 1 }]}>
+        {p.gallery.length > 1 ? (
+          <div class="carousel" data-carousel aria-roledescription="carousel" aria-label={`${p.title} — photos`}>
+            <div class="carousel__stage">
+              {p.gallery.map((g, i) => (
+                <div class="carousel__item" data-item aria-roledescription="slide" aria-label={`${i + 1} / ${p.gallery.length}`}>
+                  <Image src={g.src} alt={g.alt} widths={[480, 800, 1200]} sizes="(max-width: 700px) 70vw, 34vw" loading={i < 3 ? 'eager' : 'lazy'} />
+                </div>
+              ))}
+            </div>
+            <button class="carousel__btn carousel__btn--prev" type="button" data-prev aria-label="Previous photo">←</button>
+            <button class="carousel__btn carousel__btn--next" type="button" data-next aria-label="Next photo">→</button>
+            <p class="carousel__count mono" aria-live="polite"><span data-count>01</span> / {String(p.gallery.length).padStart(2, '0')}</p>
+          </div>
+        ) : embed ? (
           <div class="embed" style={`--ratio: ${p.videoRatio}`} data-ratio={p.videoRatio}>
             <iframe src={embed} title={`${p.title} — video`} allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
@@ -61,6 +84,43 @@ const facts = [
         <Content />
       </div>
 
+      {cs && (cs.brief || cs.challenge || cs.idea || cs.process.length > 0) && (
+        <section class="case" aria-label="Case study">
+          {cs.brief && (
+            <div class="case__row">
+              <h2 class="case__h mono">Brief</h2>
+              <p class="case__text">{cs.brief}</p>
+            </div>
+          )}
+          {cs.challenge && (
+            <div class="case__row">
+              <h2 class="case__h mono">Challenge</h2>
+              <p class="case__text">{cs.challenge}</p>
+            </div>
+          )}
+          {cs.idea && (
+            <div class="case__row">
+              <h2 class="case__h mono">The idea</h2>
+              <p class="case__text case__text--big">{cs.idea}</p>
+            </div>
+          )}
+          {cs.process.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">Process</h2>
+              <ol class="case__steps">
+                {cs.process.map((step, i) => (
+                  <li>
+                    <span class="case__step-n mono">{String(i + 1).padStart(2, '0')}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </section>
+      )}
+
       {p.blocks.length > 0 && (
         <div class="blocks">
           {p.blocks.map((b) => {
@@ -71,6 +131,37 @@ const facts = [
               return (
                 <figure class:list={['block-image', { 'is-wide': b.wide }]}>
                   <Image src={b.src} alt={b.alt} widths={[720, 1200, 1800, 2400]} sizes={b.wide ? '100vw' : '(max-width: 1440px) 92vw, 1300px'} />
+                  {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+                </figure>
+              );
+            }
+            if (b.type === 'heading') {
+              return (
+                <header class="block-heading">
+                  {b.label && <p class="block-heading__label mono">{b.label}</p>}
+                  <h2>{b.title}</h2>
+                  {b.text && <p class="block-heading__text">{b.text}</p>}
+                </header>
+              );
+            }
+            if (b.type === 'nodes') {
+              return (
+                <figure class="block-nodes">
+                  <div class="nodes" style={`--n: ${b.columns.length}`}>
+                    {b.columns.map((col, ci) => (
+                      <div class="nodes__col">
+                        <p class="nodes__label mono"><span>{String(ci + 1).padStart(2, '0')}</span> {col.label}</p>
+                        {col.items.map((it) => (
+                          <div class="node">
+                            <span class="node__port node__port--in" aria-hidden="true"></span>
+                            <Image src={it.src} alt="" widths={[240, 400]} sizes="200px" />
+                            <span class="node__name mono">{it.label}</span>
+                            <span class="node__port node__port--out" aria-hidden="true"></span>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
                   {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
                 </figure>
               );
@@ -104,10 +195,48 @@ const facts = [
         </p>
       )}
 
-      <a class="next" href={`/work/${next.id}/`}>
-        <p class="label"><span class="tc">Next</span><span>{next.data.category}</span></p>
-        <span class="next__title">{next.data.title}&nbsp;→</span>
-      </a>
+      {cs && (cs.deliverables.length > 0 || cs.results.length > 0 || cs.credits.length > 0) && (
+        <section class="case case--end" aria-label="Outcome">
+          {cs.results.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">Results</h2>
+              <ul class="case__results">
+                {cs.results.map((r) => (
+                  <li><strong>{r.value}</strong><span class="mono">{r.label}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {cs.deliverables.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">Deliverables</h2>
+              <ul class="case__list">{cs.deliverables.map((d) => <li>{d}</li>)}</ul>
+            </div>
+          )}
+          {cs.credits.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">Credits</h2>
+              <dl class="case__credits">
+                {cs.credits.map((c) => (
+                  <div><dt class="mono">{c.role}</dt><dd>{c.name}</dd></div>
+                ))}
+              </dl>
+            </div>
+          )}
+        </section>
+      )}
+
+      {next ? (
+        <a class="next" href={`/work/${next.id}/`}>
+          <p class="label"><span class="tc">Next in {section.label}</span><span>{next.data.category}</span></p>
+          <span class="next__title">{next.data.title}&nbsp;→</span>
+        </a>
+      ) : (
+        <a class="next" href={`/#work-${p.section}`}>
+          <p class="label"><span class="tc">Back</span><span>{section.label}</span></p>
+          <span class="next__title">All {section.label.toLowerCase()} work&nbsp;→</span>
+        </a>
+      )}
     </div>
   </article>
 </Base>

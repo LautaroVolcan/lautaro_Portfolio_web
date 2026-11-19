@@ -5,9 +5,12 @@ import Label from '../components/Label.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import FolderDefs from '../components/FolderDefs.astro';
 import { getProjects } from '../lib';
-import { site, about, work, education, capabilities } from '../data/site';
+import { site, about, work, education, capabilities, sections } from '../data/site';
 
 const projects = await getProjects();
+const groups = sections
+  .map((sec) => ({ ...sec, items: projects.filter((p) => p.data.section === sec.id) }))
+  .filter((g) => g.items.length > 0);
 ---
 
 <Base>
@@ -18,9 +21,32 @@ const projects = await getProjects();
       <Label n={1} text="Selected work" />
       <h2 class="section__title" id="work-title">Work</h2>
       <FolderDefs />
-      <div class="works">
-        {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
+      <div class="work-tabs" role="tablist" aria-label="Kinds of work" data-work-tabs hidden>
+        {groups.map((g, i) => (
+          <button
+            class="work-tab"
+            type="button"
+            role="tab"
+            id={`tab-${g.id}`}
+            aria-controls={`panel-${g.id}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            tabindex={i === 0 ? 0 : -1}
+            data-tab={g.id}
+          >
+            <span class="work-tab__label">{g.label}</span>
+            <span class="work-tab__count mono">{String(g.items.length).padStart(2, '0')}</span>
+          </button>
+        ))}
       </div>
+      {groups.map((g) => (
+        <div class="work-panel" role="tabpanel" id={`panel-${g.id}`} aria-labelledby={`tab-${g.id}`} data-panel={g.id}>
+          <h3 class="work-panel__title">{g.label}</h3>
+          <p class="work-panel__blurb mono">{g.blurb}</p>
+          <div class="works">
+            {g.items.map((project, i) => <ProjectCard project={project} index={i} />)}
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 

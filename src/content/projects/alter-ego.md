@@ -2,9 +2,10 @@
 title: Alter Ego
 summary: A series of alter egos of the creator, generated with Stable Diffusion image-to-image.
 category: AI imagery
+section: art
 year: 2023
 tools: [Stable Diffusion]
-order: 6
+order: 4
 cover: ../../assets/projects/alter-ego.png
 coverAlt: Chrome robot with screen goggles against an orange background
 blocks:

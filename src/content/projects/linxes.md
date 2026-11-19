@@ -2,6 +2,7 @@
 title: Cicatrices — Linxes
 summary: A music video for the band Linxes, built on projections and light to explore colors, figures and characters.
 category: Music video
+section: art
 year: 2023
 client: Linxes
 role: Director

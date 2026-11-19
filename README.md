@@ -73,3 +73,10 @@ Texto principal del proyecto en Markdown: contexto → enfoque → resultado. Pu
 | Favicons, imagen para compartir (`og-image.jpg`), video del hero | `public/` |
 
 Para el reel: pega el link en `reel` dentro de `src/data/site.ts` y aparece el botón "Watch reel" en el hero.
+
+### Bloques extra para casos de estudio
+
+- `gallery` en el frontmatter: lista de imágenes `{ src, alt }` (2 o más). Reemplaza la primera sección por un carrusel 3D en loop con flechas. Es parte de la plantilla de caso de estudio.
+- `heading`: título de sección dentro del proyecto (`label`, `title`, `text`).
+- `nodes`: diagrama tipo tablero de nodos (columnas de izquierda a derecha, cada una con miniaturas). Ver `eight.md`.
+- `caseStudy` en el frontmatter: `kind` (client / spec / pitch / concept), `brief`, `challenge`, `idea`, `process`, `deliverables`, `results`, `credits`. Ejemplo completo en `_case-study-example.md`.
