@@ -65,7 +65,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
     try {
       await navigator.clipboard.writeText(btn.dataset.copy ?? '');
       const original = btn.textContent;
-      btn.textContent = 'Copied ✓';
+      btn.textContent = btn.dataset.copied || 'Copied ✓';
       setTimeout(() => (btn.textContent = original), 1800);
     } catch {
       window.location.href = `mailto:${btn.dataset.copy}`;
@@ -237,4 +237,16 @@ document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
   addEventListener('resize', layout);
   layout();
   restart();
+});
+
+// --- language switch: slide the knob, keep the #section, then go ------------------------------
+
+document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    a.classList.add('is-switching');
+    const url = a.getAttribute('href')! + (location.hash || '');
+    setTimeout(() => location.assign(url), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 220);
+  });
 });

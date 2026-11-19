@@ -80,3 +80,9 @@ Para el reel: pega el link en `reel` dentro de `src/data/site.ts` y aparece el b
 - `heading`: título de sección dentro del proyecto (`label`, `title`, `text`).
 - `nodes`: diagrama tipo tablero de nodos (columnas de izquierda a derecha, cada una con miniaturas). Ver `eight.md`.
 - `caseStudy` en el frontmatter: `kind` (client / spec / pitch / concept), `brief`, `challenge`, `idea`, `process`, `deliverables`, `results`, `credits`. Ejemplo completo en `_case-study-example.md`.
+
+## Español (/es/)
+
+- La versión principal es en inglés (`/`); la española vive en `/es/`. El interruptor EN/ES del header lleva a la misma página en el otro idioma.
+- Textos de la home en español: `src/data/site.es.ts` (misma forma que `site.ts`). Textos de interfaz (botones, títulos de sección): `src/i18n.ts`.
+- Proyectos: `src/content/projects-es/<mismo-nombre>.md`. Solo texto: `summary`, `category`, `role`, `client`, `coverAlt`, `caseStudy`, y `blocks` / `gallery` en el mismo orden que el original (solo los campos de texto: `alt`, `caption`, `title`, `text`, `label`). El cuerpo del .md es la descripción. Lo que falte se muestra en inglés.

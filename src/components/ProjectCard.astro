@@ -4,12 +4,17 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
+import { href, type Lang } from '../i18n';
+
 interface Props {
   project: CollectionEntry<'projects'>;
   index: number;
+  lang?: Lang;
+  /** Translated data, when not English. */
+  data?: CollectionEntry<'projects'>['data'];
 }
-const { project, index } = Astro.props;
-const p = project.data;
+const { project, index, lang = 'en', data } = Astro.props;
+const p = data ?? project.data;
 // a slightly different resting angle per card, so the row doesn't look stamped
 const tilt = [-2.2, 1.4, -0.8, 2, -1.6, 0.9][index % 6];
 
@@ -24,7 +29,7 @@ const backRim = 'M6 130 L6 44 Q6 6 44 6 L160 6 Q181 6 191 21 L199 34 Q207 46 228
 const frontRim = 'M6 215 L6 160 Q6 122 44 122 L250 122 Q267 122 276 108 L285 94 Q293 82 312 82 L456 82 Q494 82 494 120 L494 175';
 ---
 
-<a class="folder" href={`/work/${project.id}/`} data-reveal data-card style={`--tilt: ${tilt}deg`}>
+<a class="folder" href={href(lang, `/work/${project.id}/`)} data-reveal data-card style={`--tilt: ${tilt}deg`}>
   <span class="folder__body">
     <svg class="folder__back" viewBox="0 0 500 400" aria-hidden="true">
       <path d={back} fill="url(#fd-back)" />

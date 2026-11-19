@@ -1,11 +1,13 @@
 ---
 import { site } from '../data/site';
+import { ui, type Lang } from '../i18n';
+const { lang = 'en' } = Astro.props as { lang?: Lang };
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer mono">
   <div class="wrap">
     <span>© {year} {site.name} — Barcelona</span>
-    <a href="#top" data-top>Back to top ↑</a>
+    <a href="#top" data-top>{ui[lang].backToTop}</a>
   </div>
 </footer>

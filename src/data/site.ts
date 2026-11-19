@@ -36,10 +36,10 @@ export const about = {
 
 export const work = [
   {
-    when: '2025 — Present',
+    when: '2025 — 2026',
     org: 'Factorial',
     role: 'Senior Video Specialist',
-    text: 'Leading end-to-end video production for paid social campaigns — from creative direction and on-set supervision through to final delivery. I direct filming crews, manage post-production across multiple concurrent projects, and work closely with marketing to define video strategy and keep assets performing across META, TikTok, and other paid channels.',
+    text: 'Led end-to-end video production for paid social campaigns — from creative direction and on-set supervision through to final delivery. I directed filming crews, managed post-production across multiple concurrent projects, and worked closely with marketing to define video strategy and keep assets performing across Meta, TikTok and other paid channels.',
   },
   {
     when: '2022 — 2025',
