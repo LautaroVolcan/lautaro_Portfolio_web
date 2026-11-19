@@ -148,9 +148,9 @@ const facts = [
                       <div class="nodes__col">
                         <p class="nodes__label mono"><span>{String(ci + 1).padStart(2, '0')}</span> {col.label}</p>
                         {col.items.map((it) => (
-                          <div class="node">
+                          <div class:list={['node', { 'node--text': !it.src }]}>
                             <span class="node__port node__port--in" aria-hidden="true"></span>
-                            <Image src={it.src} alt="" widths={[240, 400]} sizes="200px" />
+                            {it.src ? <Image src={it.src} alt="" widths={[240, 400]} sizes="200px" /> : <p class="node__text">{it.text}</p>}
                             <span class="node__name mono">{it.label}</span>
                             <span class="node__port node__port--out" aria-hidden="true"></span>
                           </div>

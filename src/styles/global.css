@@ -629,3 +629,7 @@ main > section:not([data-fluid]), .site-footer { position: relative; z-index: 1;
   .site-header .nav { margin-left: 0; }
   .lang-switch { margin-left: auto; }
 }
+
+.node--text { background: #18202a; border-color: rgba(120, 160, 200, 0.25); }
+.node__text { margin: 0; padding: 10px 6px 4px; font-size: 0.78rem; line-height: 1.4; color: #cfd6de; aspect-ratio: 16 / 10; display: flex; align-items: center; }
+@media (max-width: 760px) { .node__text { aspect-ratio: auto; font-size: 0.7rem; } }
