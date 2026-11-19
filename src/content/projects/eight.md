@@ -10,6 +10,13 @@ tools: [Magnific Spaces, Google Nano Banana 2.1]
 order: 1
 cover: ../../assets/projects/eight/12-frame-cap.jpg
 coverAlt: A woman with a platinum bob wears a faded cherry-red EIGHT cap pulled over her eyes, against a peeling mint wall in hard sun.
+gallery:
+  - { src: ../../assets/projects/eight/12-frame-cap.jpg, alt: Lía against a mint wall, the EIGHT cap pulled low over her eyes. }
+  - { src: ../../assets/projects/eight/11-frame-socks.jpg, alt: Inti on a chrome chair pulling on red EIGHT socks. }
+  - { src: ../../assets/projects/eight/13-frame-kitchen.jpg, alt: Lía crouching on the kitchen floor with two tomatoes over her eyes, the EIGHT fanny pack crossbody. }
+  - { src: ../../assets/projects/eight/15-frame-still-life.jpg, alt: The EIGHT cap on a blue doorstep with sunglasses, cherries and an espresso cup. }
+  - { src: ../../assets/projects/eight/14-frame-inti.jpg, alt: Inti sitting in the living room in the EIGHT cap and socks. }
+  - { src: ../../assets/projects/eight/16-frame-newspaper.jpg, alt: Lía hiding behind a newspaper in the living room, wearing EIGHT socks. }
 caseStudy:
   kind: concept
   brief: >-

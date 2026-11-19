@@ -561,3 +561,39 @@ main > section:not([data-fluid]), .site-footer { position: relative; z-index: 1;
   .node__name { white-space: normal; font-size: 0.58rem; line-height: 1.3; }
   .nodes__col:not(:last-child)::after { top: auto; bottom: -2.2rem; right: auto; left: 50%; width: 2px; height: 2.2rem; background: linear-gradient(180deg, var(--red), rgba(178,55,48,0.35)); }
 }
+
+/* --- 3D carousel (project hero) ------------------------------------------------- */
+
+.project__hero--carousel { background: none; overflow: hidden; margin-inline: calc(var(--pad) * -1); }
+.carousel { position: relative; height: clamp(420px, 74vh, 760px); perspective: 1800px; user-select: none; touch-action: pan-y; }
+.carousel__stage { position: absolute; inset: 0; transform-style: preserve-3d; }
+.carousel__item {
+  position: absolute; top: 4%; bottom: 10%; left: 50%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.22, 0.8, 0.24, 1), opacity 0.6s, filter 0.6s;
+  cursor: pointer;
+}
+.project__hero--carousel .carousel__item img {
+  height: 100%; width: auto; max-height: none; max-width: none; display: block;
+  border-radius: 6px; box-shadow: 0 40px 60px -30px rgba(0, 0, 0, 0.9);
+  -webkit-box-reflect: below 2px linear-gradient(transparent 82%, rgba(0, 0, 0, 0.18));
+}
+.carousel__item.is-current { cursor: default; }
+.carousel__btn {
+  position: absolute; top: 45%; z-index: 50; width: 3.4rem; height: 3.4rem; margin-top: -1.7rem;
+  border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.4); color: #fff; font-size: 1.3rem; cursor: pointer;
+  background: linear-gradient(180deg, #cf4a41, var(--red) 45%, #8f2a24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 12px 28px -10px rgba(0, 0, 0, 0.8);
+  transition: transform 0.2s;
+}
+.carousel__btn:hover { transform: scale(1.08); }
+.carousel__btn--prev { left: max(var(--pad), 3vw); background: rgba(20, 20, 20, 0.7); }
+.carousel__btn--next { right: max(var(--pad), 3vw); }
+.carousel__count { position: absolute; bottom: 1.5%; left: 0; right: 0; text-align: center; margin: 0; font-size: 0.75rem; color: var(--muted); }
+.carousel__count span { color: var(--fg); }
+@media (max-width: 700px) {
+  .carousel { height: 54vh; }
+  .carousel__item { bottom: 16%; }
+  .carousel__btn { width: 2.8rem; height: 2.8rem; top: auto; bottom: 0; margin: 0; }
+  .carousel__count { bottom: 1.1rem; }
+}

@@ -43,6 +43,8 @@ const projects = defineCollection({
       /** Optional main video shown first on the project page: Vimeo, YouTube, Adobe/Behance (ccv) or Sketchfab URL. */
       video: z.string().url().optional(),
       /** Aspect ratio of the main video, e.g. "16/9" (default), "9/16", "1/1", "4/3". */
+      /** Optional: replaces the hero with a 3D carousel of these images (loops, with arrows). */
+      gallery: z.array(z.object({ src: image(), alt: z.string() })).default([]),
       videoRatio: z.string().default('16/9'),
       /**
        * The body of the case study, in order, after the main text. Each block is one of:

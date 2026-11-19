@@ -168,3 +168,73 @@ if (tablist) {
     });
   });
 }
+
+// --- 3D carousel: loops, arrows, swipe, keys, slow autoplay ------------------------------------
+
+document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+  const items = Array.from(root.querySelectorAll<HTMLElement>('[data-item]'));
+  const count = root.querySelector<HTMLElement>('[data-count]');
+  const n = items.length;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current = 0;
+
+  const layout = () => {
+    const small = innerWidth < 700;
+    const step = small ? 0.62 : 0.78; // horizontal spacing, in item widths
+    items.forEach((el, i) => {
+      let d = i - current;
+      if (d > n / 2) d -= n;
+      if (d < -n / 2) d += n;
+      const a = Math.abs(d);
+      const w = el.offsetWidth || 300;
+      el.style.transform =
+        `translateX(${-w / 2 + d * w * step}px) translateZ(${-a * (small ? 140 : 220)}px) rotateY(${-Math.sign(d) * Math.min(a, 2) * 24}deg)`;
+      el.style.opacity = a > (small ? 1 : 2) ? '0' : a === 0 ? '1' : String(1 - a * 0.25);
+      el.style.filter = a === 0 ? 'none' : `brightness(${1 - a * 0.25})`;
+      el.style.zIndex = String(20 - a);
+      el.classList.toggle('is-current', a === 0);
+      el.setAttribute('aria-hidden', String(a !== 0));
+    });
+    if (count) count.textContent = String(current + 1).padStart(2, '0');
+  };
+  const go = (to: number) => {
+    current = (to + n) % n;
+    layout();
+  };
+
+  root.querySelector('[data-next]')?.addEventListener('click', () => { go(current + 1); restart(); });
+  root.querySelector('[data-prev]')?.addEventListener('click', () => { go(current - 1); restart(); });
+  items.forEach((el, i) => el.addEventListener('click', () => { if (i !== current) { go(i); restart(); } }));
+  root.tabIndex = 0;
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { go(current + 1); restart(); }
+    if (e.key === 'ArrowLeft') { go(current - 1); restart(); }
+  });
+  let x0: number | null = null;
+  root.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+  root.addEventListener('pointerup', (e) => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 40) { go(current + (dx < 0 ? 1 : -1)); restart(); }
+  });
+
+  // autoplay: one step every 4.5 s, paused while hovered or off-screen
+  let timer = 0;
+  let visible = true;
+  let hovered = false;
+  const tick = () => { if (visible && !hovered && !document.hidden) go(current + 1); };
+  const restart = () => {
+    clearInterval(timer);
+    if (!reduce) timer = window.setInterval(tick, 4500);
+  };
+  root.addEventListener('pointerenter', () => { hovered = true; });
+  root.addEventListener('pointerleave', () => { hovered = false; });
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(root);
+
+  // images give the items their width: lay out again as they load and on resize
+  items.forEach((el) => el.querySelector('img')?.addEventListener('load', layout));
+  addEventListener('resize', layout);
+  layout();
+  restart();
+});

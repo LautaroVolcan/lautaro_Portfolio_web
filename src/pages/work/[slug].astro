@@ -55,8 +55,21 @@ const facts = [
         ))}
       </dl>
 
-      <figure class="project__hero">
-        {embed ? (
+      <figure class:list={['project__hero', { 'project__hero--carousel': p.gallery.length > 1 }]}>
+        {p.gallery.length > 1 ? (
+          <div class="carousel" data-carousel aria-roledescription="carousel" aria-label={`${p.title} — photos`}>
+            <div class="carousel__stage">
+              {p.gallery.map((g, i) => (
+                <div class="carousel__item" data-item aria-roledescription="slide" aria-label={`${i + 1} / ${p.gallery.length}`}>
+                  <Image src={g.src} alt={g.alt} widths={[480, 800, 1200]} sizes="(max-width: 700px) 70vw, 34vw" loading={i < 3 ? 'eager' : 'lazy'} />
+                </div>
+              ))}
+            </div>
+            <button class="carousel__btn carousel__btn--prev" type="button" data-prev aria-label="Previous photo">←</button>
+            <button class="carousel__btn carousel__btn--next" type="button" data-next aria-label="Next photo">→</button>
+            <p class="carousel__count mono" aria-live="polite"><span data-count>01</span> / {String(p.gallery.length).padStart(2, '0')}</p>
+          </div>
+        ) : embed ? (
           <div class="embed" style={`--ratio: ${p.videoRatio}`} data-ratio={p.videoRatio}>
             <iframe src={embed} title={`${p.title} — video`} allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
