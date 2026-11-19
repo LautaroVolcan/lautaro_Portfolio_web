@@ -2,12 +2,12 @@
 title: Helena von Arx
 summary: An AI influencer designed from scratch — a 75-year-old Swiss woman you recognise in a thumbnail — and the content system that turns a short brief into a new post.
 category: AI influencer & content system
-section: commercial
+section: art
 client: Helena von Arx (fictional character)
 year: 2026
 role: Character design, creative direction, AI pipeline
 tools: [Magnific Spaces, Google Nano Banana 2.1, Gemini Flash]
-order: 2
+order: 0
 cover: ../../assets/projects/helena/05-hero-portrait.jpg
 coverAlt: Helena von Arx, a very tall 75-year-old woman with a towering white chignon with an emerald streak, feather-white eyebrows and emerald sunglasses, in a fuchsia cape over a tangerine dress, white opera gloves and a gold pocket watch, sitting in a blue velvet armchair.
 gallery:
