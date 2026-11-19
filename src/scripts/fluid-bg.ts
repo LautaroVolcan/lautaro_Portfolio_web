@@ -55,6 +55,7 @@ void main() {
   float streak = pow(abs(sin(band)), 26.0) + 0.5 * pow(abs(sin(band * 1.7 + 1.3)), 40.0);
   col += vec3(1.0, 0.93, 0.86) * streak * 0.28;
   col *= 0.62 + 0.6 * smoothstep(0.2, 0.8, f);
+  col *= 0.68;  // overall dimmer, so folders and text sit on top of it
   outColor = vec4(col, 1.0);
 }`;
 

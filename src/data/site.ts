@@ -74,6 +74,12 @@ export const education = [
     text: 'Full frontend development track covering Web Development, JavaScript, and React — rounding out the technical side of my profile alongside the audiovisual work.',
   },
   {
+    when: '2019',
+    org: 'UX/UI Design',
+    role: 'Course · Coderhouse',
+    text: 'UX/UI design course covering the full product design process — user research, information architecture and user flows, wireframes, visual interface design, interactive prototypes and usability testing.',
+  },
+  {
     when: '2018',
     org: 'Blender',
     role: 'Specialization',

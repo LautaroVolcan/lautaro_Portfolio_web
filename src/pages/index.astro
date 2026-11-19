@@ -32,10 +32,6 @@ const projects = await getProjects();
         <p class="about__lead" data-reveal>{about.lead}</p>
         <div class="about__body" data-reveal>
           {about.body.map((p) => <p>{p}</p>)}
-          <div class="about__actions">
-            <a class="btn btn--red" href="#contact">Hire me</a>
-            <a class="btn" href={site.cv} target="_blank" rel="noopener">Download CV</a>
-          </div>
         </div>
       </div>
 
