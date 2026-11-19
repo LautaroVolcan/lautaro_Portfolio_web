@@ -1,5 +1,6 @@
 ---
-// A project as a folder: the cover peeks out of a red folder, and rises on hover.
+// A project as a glossy black folder: the cover peeks out, and rises on hover.
+// Shapes are SVG (viewBox 500×400, same 5:4 ratio as the card) using the gradients in FolderDefs.
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
@@ -11,26 +12,51 @@ const { project, index } = Astro.props;
 const p = project.data;
 // a slightly different resting angle per card, so the row doesn't look stamped
 const tilt = [-2.2, 1.4, -0.8, 2, -1.6, 0.9][index % 6];
+
+// back panel with a tab on the left
+const back =
+  'M44 400 Q4 400 4 360 L4 44 Q4 4 44 4 L160 4 Q182 4 192 20 L200 33 Q208 44 228 44 L456 44 Q496 44 496 84 L496 360 Q496 400 456 400 Z';
+// front panel: lower on the left, steps up on the right
+const front =
+  'M44 400 Q4 400 4 360 L4 160 Q4 120 44 120 L250 120 Q268 120 277 106 L286 92 Q294 80 312 80 L456 80 Q496 80 496 120 L496 360 Q496 400 456 400 Z';
+// chrome rims (open paths along the top edges)
+const backRim = 'M6 130 L6 44 Q6 6 44 6 L160 6 Q181 6 191 21 L199 34 Q207 46 228 46 L456 46 Q494 46 494 84';
+const frontRim = 'M6 215 L6 160 Q6 122 44 122 L250 122 Q267 122 276 108 L285 94 Q293 82 312 82 L456 82 Q494 82 494 120 L494 175';
 ---
 
 <a class="folder" href={`/work/${project.id}/`} data-reveal data-card style={`--tilt: ${tilt}deg`}>
-  <span class="folder__back" aria-hidden="true"></span>
-  <span class="folder__paper">
-    <Image
-      src={p.cover}
-      alt={p.coverAlt}
-      widths={[480, 720, 1080]}
-      sizes="(max-width: 700px) 86vw, (max-width: 1100px) 42vw, 28vw"
-      loading={index < 3 ? 'eager' : 'lazy'}
-      data-card-img
-    />
-    {p.loop && <video data-card-loop src={p.loop} muted loop playsinline preload="none" aria-hidden="true"></video>}
-  </span>
-  <span class="folder__front">
-    <span class="folder__num mono">{String(index + 1).padStart(3, '0')}</span>
-    <span class="folder__label">
-      <span class="folder__title">{p.title}</span>
-      <span class="folder__cat mono">{p.category}{p.year ? ` · ${p.year}` : ''}</span>
+  <span class="folder__body">
+    <svg class="folder__back" viewBox="0 0 500 400" aria-hidden="true">
+      <path d={back} fill="url(#fd-back)" />
+      <path d={backRim} fill="none" stroke="url(#fd-rim)" stroke-width="3.2" stroke-linecap="round" filter="url(#fd-glow)" />
+      <path d={backRim} fill="none" stroke="#000" stroke-opacity="0.7" stroke-width="2" transform="translate(0 4)" />
+    </svg>
+
+    <span class="folder__paper">
+      <Image
+        src={p.cover}
+        alt={p.coverAlt}
+        widths={[480, 720, 1080]}
+        sizes="(max-width: 700px) 86vw, (max-width: 1100px) 42vw, 28vw"
+        loading={index < 3 ? 'eager' : 'lazy'}
+        data-card-img
+      />
+      {p.loop && <video data-card-loop src={p.loop} muted loop playsinline preload="none" aria-hidden="true"></video>}
+    </span>
+
+    <span class="folder__front">
+      <svg viewBox="0 0 500 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d={front} fill="url(#fd-front)" />
+        <path d={front} fill="url(#fd-sheen)" />
+        <path d={frontRim} fill="none" stroke="url(#fd-rim)" stroke-width="3.6" stroke-linecap="round" filter="url(#fd-glow)" />
+        <path d={frontRim} fill="none" stroke="#000" stroke-opacity="0.7" stroke-width="2.2" transform="translate(0 4)" />
+        <path d="M6 165 L6 360 Q6 398 44 398" fill="none" stroke="url(#fd-side)" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <span class="folder__num mono">{String(index + 1).padStart(3, '0')}</span>
+      <span class="folder__label">
+        <span class="folder__title">{p.title}</span>
+        <span class="folder__cat mono">{p.category}{p.year ? ` · ${p.year}` : ''}</span>
+      </span>
     </span>
   </span>
 </a>

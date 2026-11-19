@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Label from '../components/Label.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import FolderDefs from '../components/FolderDefs.astro';
 import { getProjects } from '../lib';
 import { site, about, work, education, capabilities } from '../data/site';
 
@@ -16,6 +17,7 @@ const projects = await getProjects();
     <div class="wrap">
       <Label n={1} text="Selected work" />
       <h2 class="section__title" id="work-title">Work</h2>
+      <FolderDefs />
       <div class="works">
         {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
       </div>
