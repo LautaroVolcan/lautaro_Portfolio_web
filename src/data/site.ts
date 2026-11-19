@@ -127,9 +127,9 @@ export const capabilities = {
 
 /** The three tabs of Work, in display order. */
 export const sections = [
+  { id: 'commercial', label: 'Commercial', blurb: 'Campaigns, brand content and creative for clients.' },
   { id: 'art', label: 'Art', blurb: 'Installations, real-time visuals, music videos and personal research.' },
   { id: 'films', label: 'Films', blurb: 'Documentary and branded films.' },
-  { id: 'commercial', label: 'Commercial', blurb: 'Campaigns, brand content and creative for clients.' },
 ] as const;
 
 /** Section counters styled as SMPTE timecode (HH:MM:SS:FF). */
