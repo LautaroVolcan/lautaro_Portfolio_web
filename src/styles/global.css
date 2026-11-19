@@ -424,4 +424,39 @@ main > section:not([data-fluid]), .site-footer { position: relative; z-index: 1;
 #work .label .tc, #work .label { color: rgba(255, 255, 255, 0.8); }
 .hero .hero__greeting { color: var(--fg); }
 .hero .hero__greeting::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 0.7em; border-radius: 50%; background: var(--red); vertical-align: 0.05em; }
-.hero__media video { border-radius: 6px; }
+/* hero picture as a tilted glossy card, like the folders */
+.hero__media { perspective: 1400px; }
+.hero__card {
+  --rx: 5deg; --ry: -14deg;
+  position: relative; width: 100%; height: 100%;
+  border-radius: 16px;
+  transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(-0.6deg);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.hero__card::before { /* back face: gives the card a visible edge/thickness when tilted */
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, #3a2a26, #120c0b);
+  transform: translateZ(-14px);
+  box-shadow: 0 60px 90px -30px rgba(0, 0, 0, 0.7);
+}
+.hero__media .hero__card video {
+  position: relative; display: block;
+  width: 100%; height: 100%; object-fit: cover;
+  border-radius: inherit;
+}
+.hero__sheen, .hero__rim { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
+.hero__sheen {
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 28%, rgba(255, 255, 255, 0) 45%);
+  mix-blend-mode: screen;
+}
+.hero__rim { /* chrome edge: bright top/left, fading right/bottom */
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.75),
+    inset 2px 0 0 rgba(255, 255, 255, 0.5),
+    inset -1px 0 0 rgba(255, 255, 255, 0.18),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 900px) {
+  .hero__card { --rx: 3deg; --ry: -8deg; }
+}

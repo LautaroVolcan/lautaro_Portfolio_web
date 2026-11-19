@@ -95,3 +95,36 @@ import { initFluidBackground } from './fluid-bg';
 const fluidSections = Array.from(document.querySelectorAll<HTMLElement>('[data-fluid]'));
 // @ts-expect-error: not in every TS lib yet
 if (fluidSections.length && !navigator.connection?.saveData) initFluidBackground(fluidSections);
+
+// --- Hero card: tilted at rest, faces you on hover, follows the pointer a little --------------
+
+const heroCard = document.querySelector<HTMLElement>('[data-hero-card]');
+const heroSection = document.querySelector<HTMLElement>('.hero');
+if (heroCard && heroSection && !reduceMotion && window.matchMedia('(hover: hover)').matches) {
+  const REST = { x: 5, y: -14 };
+  const cur = { x: REST.x, y: REST.y };
+  const target = { x: REST.x, y: REST.y };
+  let over = false;
+  let px = 0, py = 0;
+  let raf = 0;
+  const update = () => {
+    const base = over ? { x: 0, y: 0 } : REST;
+    target.x = base.x - py * 6;
+    target.y = base.y + px * 8;
+    cur.x += (target.x - cur.x) * 0.08;
+    cur.y += (target.y - cur.y) * 0.08;
+    heroCard.style.setProperty('--rx', `${cur.x.toFixed(2)}deg`);
+    heroCard.style.setProperty('--ry', `${cur.y.toFixed(2)}deg`);
+    raf = Math.abs(target.x - cur.x) + Math.abs(target.y - cur.y) > 0.02 ? requestAnimationFrame(update) : 0;
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(update); };
+  heroSection.addEventListener('pointermove', (e) => {
+    const r = heroSection.getBoundingClientRect();
+    px = (e.clientX - r.left) / r.width - 0.5;
+    py = (e.clientY - r.top) / r.height - 0.5;
+    kick();
+  });
+  heroSection.addEventListener('pointerleave', () => { px = 0; py = 0; over = false; kick(); });
+  heroCard.addEventListener('pointerenter', () => { over = true; kick(); });
+  heroCard.addEventListener('pointerleave', () => { over = false; kick(); });
+}
