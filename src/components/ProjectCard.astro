@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+}
+const { project, index } = Astro.props;
+const p = project.data;
+---
+
+<a class="card" href={`/work/${project.id}/`} data-reveal data-card>
+  <div class="card__media" data-card-media>
+    <Image
+      src={p.cover}
+      alt={p.coverAlt}
+      widths={[480, 720, 1080]}
+      sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 30vw"
+      loading={index < 3 ? 'eager' : 'lazy'}
+      data-card-img
+    />
+    {p.loop && <video data-card-loop src={p.loop} muted loop playsinline preload="none" aria-hidden="true"></video>}
+  </div>
+  <div class="card__meta">
+    <span class="card__num mono">{String(index + 1).padStart(3, '0')}</span>
+    <h3 class="card__title">{p.title}</h3>
+    <span class="card__cat mono">{p.category}</span>
+  </div>
+</a>

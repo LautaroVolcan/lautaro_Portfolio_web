@@ -1,0 +1,6 @@
+---
+import { tc } from '../data/site';
+const { n, text } = Astro.props as { n: number; text: string };
+---
+
+<p class="label"><span class="tc">{tc(n)}</span><span>{text}</span></p>
