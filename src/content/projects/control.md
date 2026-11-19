@@ -1,18 +1,34 @@
 ---
 title: Control
-summary: An interactive VR installation built as an open work, completed by each visitor.
+summary: An interactive virtual reality installation, conceived as an open work that each visitor completes.
 category: Interactive installation
+year: 2023
 tools: [Virtual reality]
-order: 2
+order: 3
 cover: ../../assets/projects/control.png
 coverAlt: Red cube with the word CONTROL printed on its sides, against the sky
-external:
-  label: Archive on Behance
-  url: https://www.behance.net/gallery/164207521/CONTROL-Interactive-Installation
+video: https://www-ccv.adobe.io/v1/player/ccv/4qeobwqSeji/embed?api_key=behance1&bgcolor=%23191919
+videoRatio: 16/9
+blocks:
+  - type: image
+    src: ../../assets/projects/control/cover.jpg
+    alt: CONTROL — experiencia interactiva VR, title card
+    wide: true
+  - type: image
+    src: ../../assets/projects/control/02.jpg
+    alt: The virtual environment on screen and visitors trying the installation with a VR headset
+  - type: image
+    src: ../../assets/projects/control/03.jpg
+    alt: The red CONTROL cube in the virtual space, and visitors in the room
+  - type: image
+    src: ../../assets/projects/control/04.jpg
+    alt: A green grid floor in the virtual space, and visitors with the headset
 ---
 
-Control is an interactive virtual reality installation conceived as an open work: there is no single reading, and each visitor completes the piece through their own interpretation.
+This project revolves around the creation of an interactive virtual reality installation, which we propose as an open work of art, wherein each user will experience it in a unique way, based on their individual interpretation.
 
-The installation uses the immersion of VR to move people into an alternate reality where they engage with the work directly. It works across a range of stimuli, from the tactile to the cerebral, aiming for reactions that go from the immediate gut response to slower reflection.
+By leveraging the immersive and interactive nature of virtual reality, our installation seeks to transport users into an alternate reality, where they can engage with the artwork in a deeply personal and meaningful way.
 
-<!-- TODO (Lautaro): year, venue, team, documentation video of visitors using it. -->
+Through a range of sensory stimuli, from the tactile to the cerebral, our installation aims to evoke a range of emotional and cognitive responses, from immediate visceral reactions to prolonged and contemplative reflection.
+
+Ultimately, we aim to create a dynamic and transformative experience that will leave a lasting impression on users, encouraging them to engage with art in new and exciting ways.
