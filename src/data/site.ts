@@ -27,11 +27,10 @@ export const hero = {
 export const about = {
   lead: "I'm a creative and multimedia designer based in Barcelona. I take an idea from the brief to the finished piece — concept, edit, motion, 3D and AI-assisted imagery — for brands, campaigns and my own projects.",
   body: [
-    "Right now I'm Senior Video Specialist at Factorial, where I make paid social and brand content for Meta, TikTok and Instagram: hooks, ad variations, motion pieces and the systems that let a small team ship a lot of them without losing quality.",
+    'Most of my commercial work is brand content: campaigns and pieces made for the places people actually see them.',
     "I trained in Image Design at the Universidad Nacional de La Plata, in Argentina, and later added UX/UI and front-end development. That mix is how I work: I think about who the piece is for and where it will be seen before I think about how it looks, and I can build most of it myself.",
-    "I use generative AI as part of the toolbox — for previs, plates, variations and speed — and keep the decisions about story, rhythm and taste on my side of the table.",
-    "Outside client work I keep a studio practice: interactive installations, live visuals and documentary. It is where I test ideas that later end up in commercial projects.",
-    "If you have a brief, a launch or a half-formed idea, write to me.",
+    'I use generative AI as part of the toolbox — for previs, plates, variations and speed — and keep the decisions about story, rhythm and taste on my side of the table.',
+    'Alongside that I keep a personal practice — interactive installations, live visuals and documentary — with its own questions and its own pace.',
   ],
 };
 
@@ -94,36 +93,6 @@ export const education = [
     text: "Five-year degree in Image Design — a program that bridges visual theory and hands-on audiovisual production. It's where I built the foundation that still informs how I approach every project.",
   },
 ];
-
-export const capabilities = {
-  intro: 'I like doing things. Lots of things.',
-  items: [
-    {
-      title: 'Video Editor',
-      text: "Five years cutting across paid social, branded content, e-learning, and documentary. My main tools are Premiere Pro, After Effects, CapCut, and DaVinci Resolve — and I'm as focused on pacing and emotional rhythm as I am on technical delivery.",
-    },
-    {
-      title: 'Motion Graphics',
-      text: 'I design motion with intention — title sequences, brand animations, compositing, and VFX integration. I work primarily in After Effects and build things that move because they need to, not just because they can.',
-    },
-    {
-      title: '3D Artist',
-      text: 'Modeling, lighting, animation, and rendering in Blender. I use 3D as a storytelling tool — product visuals, abstract environments, and character work that would be impossible or impractical to shoot.',
-    },
-    {
-      title: 'AI-Assisted Production',
-      text: "I integrate AI into my production workflow — using it for image generation, asset creation, and visual ideation to move faster without losing quality. It's a tool like any other: useful when it solves a real problem.",
-    },
-    {
-      title: 'Documentary',
-      text: "I make documentaries about people and the things that shape them. My approach is observational and close — I'm interested in the ordinary moments that end up saying the most.",
-    },
-    {
-      title: 'Interactive Installations',
-      text: 'I design experiences that put the audience inside the work. Using TouchDesigner, I build real-time, sensor-driven pieces where the boundary between viewer and artwork disappears.',
-    },
-  ],
-};
 
 /** The three tabs of Work, in display order. */
 export const sections = [

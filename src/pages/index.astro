@@ -5,7 +5,7 @@ import Label from '../components/Label.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import FolderDefs from '../components/FolderDefs.astro';
 import { getProjects } from '../lib';
-import { site, about, work, education, capabilities, sections } from '../data/site';
+import { site, about, work, education, sections } from '../data/site';
 
 const projects = await getProjects();
 const groups = sections
@@ -92,25 +92,9 @@ const groups = sections
     </div>
   </section>
 
-  <section class="section" id="capabilities" aria-labelledby="caps-title">
-    <div class="wrap">
-      <Label n={3} text="Capabilities" />
-      <h2 class="section__title" id="caps-title">{capabilities.intro}</h2>
-      <div class="caps">
-        {capabilities.items.map((c, i) => (
-          <article class="cap" data-reveal>
-            <span class="meta">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{c.title}</h3>
-            <p>{c.text}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="contact" aria-labelledby="contact-title">
     <div class="wrap">
-      <Label n={4} text="Get in touch" />
+      <Label n={3} text="Get in touch" />
       <h2 class="sr-only" id="contact-title">Contact</h2>
       <a class="contact__big" href={`mailto:${site.email}?subject=Hi%20Lautaro`}>Hi there!</a>
       <div class="contact__row">
