@@ -58,6 +58,19 @@ const projects = defineCollection({
             z.object({ type: z.literal('images'), items: z.array(z.object({ src: image(), alt: z.string() })).min(2).max(3), caption: z.string().optional() }),
             z.object({ type: z.literal('video'), url: z.string().url(), ratio: z.string().default('16/9'), title: z.string().optional(), caption: z.string().optional() }),
             z.object({ type: z.literal('text'), body: z.string() }),
+            /** A small section title inside the blocks, e.g. "02 · Product". */
+            z.object({ type: z.literal('heading'), label: z.string().optional(), title: z.string(), text: z.string().optional() }),
+            /**
+             * A node-graph style diagram of a pipeline: columns left to right, each with a few cards (thumbnail + label).
+             * Good for showing how an AI workflow is wired (references feeding generators).
+             */
+            z.object({
+              type: z.literal('nodes'),
+              columns: z
+                .array(z.object({ label: z.string(), items: z.array(z.object({ src: image(), label: z.string() })).min(1) }))
+                .min(2),
+              caption: z.string().optional(),
+            }),
           ]),
         )
         .default([]),

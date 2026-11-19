@@ -526,3 +526,38 @@ main > section:not([data-fluid]), .site-footer { position: relative; z-index: 1;
 .case__credits { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem 2rem; }
 .case__credits dt { color: var(--muted); font-size: 0.72rem; }
 .case__credits dd { margin: 0.3rem 0 0; }
+
+/* --- heading + node diagram blocks ---------------------------------------------- */
+
+.block-heading { padding-top: clamp(2rem, 5vw, 4rem); border-top: 1px solid var(--line); max-width: 62ch; }
+.block-heading h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); margin: 0.4rem 0 0.8rem; }
+.block-heading__label { color: var(--red-text); font-size: 0.75rem; margin: 0; }
+.block-heading__text { margin: 0; color: #cfcbc3; }
+
+.block-nodes { padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: 18px;
+  background:
+    radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1.2px) 0 0 / 22px 22px,
+    #121212;
+  border: 1px solid var(--line); overflow-x: auto; }
+.nodes { display: grid; grid-template-columns: repeat(var(--n), minmax(150px, 1fr)); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; min-width: 720px; }
+.nodes__col { display: grid; gap: 0.9rem; position: relative; }
+.nodes__label { margin: 0 0 0.2rem; font-size: 0.7rem; color: var(--muted); }
+.nodes__label span { color: var(--red-text); }
+.node { position: relative; background: #1d1d1d; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 6px; box-shadow: 0 8px 20px -12px rgba(0,0,0,0.8); }
+.node img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 6px; }
+.node__name { display: block; font-size: 0.62rem; padding: 6px 2px 2px; color: #d9d5cd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.node__port { position: absolute; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--red); border: 2px solid #121212; }
+.node__port--in { left: -5px; }
+.node__port--out { right: -5px; }
+.nodes__col:first-child .node__port--in, .nodes__col:last-child .node__port--out { display: none; }
+/* the wires: a line from each column into the next */
+.nodes__col:not(:last-child)::after { content: ''; position: absolute; top: 50%; right: calc(clamp(1.5rem, 4vw, 3.5rem) * -1); width: clamp(1.5rem, 4vw, 3.5rem); height: 2px; background: linear-gradient(90deg, var(--red), rgba(178,55,48,0.35)); }
+.block-nodes figcaption { margin-top: 1.25rem; }
+@media (max-width: 760px) {
+  .nodes { grid-template-columns: 1fr; min-width: 0; gap: 2.2rem; }
+  .nodes__col { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 0.6rem; }
+  .nodes__label { grid-column: 1 / -1; }
+  .node__port { display: none; }
+  .node__name { white-space: normal; font-size: 0.58rem; line-height: 1.3; }
+  .nodes__col:not(:last-child)::after { top: auto; bottom: -2.2rem; right: auto; left: 50%; width: 2px; height: 2.2rem; background: linear-gradient(180deg, var(--red), rgba(178,55,48,0.35)); }
+}

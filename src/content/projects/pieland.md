@@ -5,7 +5,7 @@ category: 3D / Marketing content
 section: commercial
 year: 2023
 tools: [Blender]
-order: 1
+order: 2
 cover: ../../assets/projects/pieland.png
 coverAlt: 3D render of a pink donut with colorful sprinkles falling around it
 video: https://www-ccv.adobe.io/v1/player/ccv/RNidzS4kWKr/embed?api_key=behance1&bgcolor=%23191919

@@ -122,6 +122,37 @@ const facts = [
                 </figure>
               );
             }
+            if (b.type === 'heading') {
+              return (
+                <header class="block-heading">
+                  {b.label && <p class="block-heading__label mono">{b.label}</p>}
+                  <h2>{b.title}</h2>
+                  {b.text && <p class="block-heading__text">{b.text}</p>}
+                </header>
+              );
+            }
+            if (b.type === 'nodes') {
+              return (
+                <figure class="block-nodes">
+                  <div class="nodes" style={`--n: ${b.columns.length}`}>
+                    {b.columns.map((col, ci) => (
+                      <div class="nodes__col">
+                        <p class="nodes__label mono"><span>{String(ci + 1).padStart(2, '0')}</span> {col.label}</p>
+                        {col.items.map((it) => (
+                          <div class="node">
+                            <span class="node__port node__port--in" aria-hidden="true"></span>
+                            <Image src={it.src} alt="" widths={[240, 400]} sizes="200px" />
+                            <span class="node__name mono">{it.label}</span>
+                            <span class="node__port node__port--out" aria-hidden="true"></span>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                  {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+                </figure>
+              );
+            }
             if (b.type === 'images') {
               return (
                 <figure class="block-images" style={`--cols: ${b.items.length}`}>
