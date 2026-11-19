@@ -139,8 +139,19 @@ p { margin: 0 0 1.1em; }
 
 @media (max-width: 720px) {
   .menu-toggle {
-    display: inline-flex; background: none; border: 0; color: var(--fg); padding: 0.5rem; cursor: pointer;
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 6px;
+    width: 44px; height: 44px; padding: 0 9px;
+    background: none; border: 0; cursor: pointer;
   }
+  .menu-toggle span {
+    display: block; height: 2px; width: 100%; border-radius: 2px;
+    background: var(--fg);
+    transition: transform 0.3s var(--ease), opacity 0.2s;
+  }
+  /* open: the three lines become an X */
+  .menu-toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .menu-toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+  .menu-toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
     background: var(--bg); border-bottom: 1px solid var(--line);

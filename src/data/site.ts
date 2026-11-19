@@ -81,9 +81,9 @@ export const education = [
   },
   {
     when: '2018',
-    org: 'Blender',
+    org: 'After Effects',
     role: 'Specialization',
-    text: 'Intensive specialization in Blender covering 3D modeling, animation, lighting, and visual effects. Focused on building production-level skills in character animation and materials.',
+    text: 'Intensive specialization in After Effects covering motion graphics, keyframe animation, compositing, and visual effects. Focused on building production-level skills in title design, tracking, and integrating graphics into live-action footage.',
   },
   {
     when: '2013 — 2018',
