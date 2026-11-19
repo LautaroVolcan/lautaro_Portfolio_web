@@ -83,4 +83,24 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = { projects };
+/**
+ * Spanish translations, one file per project with the same name as in content/projects.
+ * Only text: anything left out falls back to English. `blocks` and `gallery` are matched by position
+ * (block 1 overrides block 1…), so you only write the text fields (alt, caption, title, text, label, body).
+ */
+const projectsEs = defineCollection({
+  loader: glob({ base: './src/content/projects-es', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string().optional(),
+    summary: z.string().optional(),
+    category: z.string().optional(),
+    client: z.string().optional(),
+    role: z.string().optional(),
+    coverAlt: z.string().optional(),
+    caseStudy: z.record(z.string(), z.any()).optional(),
+    gallery: z.array(z.object({ alt: z.string() }).partial()).optional(),
+    blocks: z.array(z.record(z.string(), z.any())).optional(),
+  }),
+});
+
+export const collections = { projects, projectsEs };

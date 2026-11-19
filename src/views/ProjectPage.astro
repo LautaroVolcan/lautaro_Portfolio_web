@@ -1,0 +1,238 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Label from '../components/Label.astro';
+import { embedUrl, localize } from '../lib';
+import { copy, href, ui, type Lang } from '../i18n';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+  next: CollectionEntry<'projects'> | null;
+  lang?: Lang;
+}
+const { project, index, next, lang = 'en' } = Astro.props;
+const t = ui[lang];
+const { data: p, body } = await localize(project, lang);
+const nextData = next ? (await localize(next, lang)).data : null;
+const section = copy(lang).sections.find((s) => s.id === p.section)!;
+const cs = p.caseStudy;
+const kindLabel = t.kind;
+const { Content } = await render(body);
+const embed = p.video ? embedUrl(p.video) : null;
+const og = await getImage({ src: p.cover, width: 1200, format: 'jpg', quality: 82 });
+
+const facts = [
+  [t.facts.category, p.category],
+  [t.facts.year, p.year],
+  [t.facts.client, p.client],
+  [t.facts.type, cs ? kindLabel[cs.kind] : undefined],
+  [t.facts.role, p.role],
+  [t.facts.tools, p.tools.length ? p.tools.join(', ') : undefined],
+].filter(([, v]) => v !== undefined && v !== '');
+---
+
+<Base title={`${p.title} — Lautaro Ferrandi`} description={p.summary} image={og.src} current="work" lang={lang}>
+  <article class="project">
+    <div class="wrap">
+      <a class="back mono" href={href(lang, `/#work-${p.section}`)}>← {section.label}</a>
+      <Label n={index + 1} text={`${section.label} · ${p.category}`} />
+      <h1>{p.title}</h1>
+      <p class="project__summary">{p.summary}</p>
+
+      <dl class="facts mono">
+        {facts.map(([k, v]) => (
+          <div>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <figure class:list={['project__hero', { 'project__hero--carousel': p.gallery.length > 1 }]}>
+        {p.gallery.length > 1 ? (
+          <div class="carousel" data-carousel aria-roledescription="carousel" aria-label={`${p.title} — ${t.photos}`}>
+            <div class="carousel__stage">
+              {p.gallery.map((g, i) => (
+                <div class="carousel__item" data-item aria-roledescription="slide" aria-label={`${i + 1} / ${p.gallery.length}`}>
+                  <Image src={g.src} alt={g.alt} widths={[480, 800, 1200]} sizes="(max-width: 700px) 70vw, 34vw" loading={i < 3 ? 'eager' : 'lazy'} />
+                </div>
+              ))}
+            </div>
+            <button class="carousel__btn carousel__btn--prev" type="button" data-prev aria-label={t.prev}>←</button>
+            <button class="carousel__btn carousel__btn--next" type="button" data-next aria-label={t.next}>→</button>
+            <p class="carousel__count mono" aria-live="polite"><span data-count>01</span> / {String(p.gallery.length).padStart(2, '0')}</p>
+          </div>
+        ) : embed ? (
+          <div class="embed" style={`--ratio: ${p.videoRatio}`} data-ratio={p.videoRatio}>
+            <iframe src={embed} title={`${p.title} — ${t.video}`} allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+        ) : p.loop ? (
+          <video src={p.loop} autoplay muted loop playsinline aria-label={p.coverAlt}></video>
+        ) : (
+          <Image src={p.cover} alt={p.coverAlt} widths={[720, 1200, 1600]} sizes="(max-width: 1440px) 92vw, 1300px" loading="eager" />
+        )}
+      </figure>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      {cs && (cs.brief || cs.challenge || cs.idea || cs.process.length > 0) && (
+        <section class="case" aria-label={t.caseStudy}>
+          {cs.brief && (
+            <div class="case__row">
+              <h2 class="case__h mono">{t.caseH.brief}</h2>
+              <p class="case__text">{cs.brief}</p>
+            </div>
+          )}
+          {cs.challenge && (
+            <div class="case__row">
+              <h2 class="case__h mono">{t.caseH.challenge}</h2>
+              <p class="case__text">{cs.challenge}</p>
+            </div>
+          )}
+          {cs.idea && (
+            <div class="case__row">
+              <h2 class="case__h mono">{t.caseH.idea}</h2>
+              <p class="case__text case__text--big">{cs.idea}</p>
+            </div>
+          )}
+          {cs.process.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">{t.caseH.process}</h2>
+              <ol class="case__steps">
+                {cs.process.map((step, i) => (
+                  <li>
+                    <span class="case__step-n mono">{String(i + 1).padStart(2, '0')}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </section>
+      )}
+
+      {p.blocks.length > 0 && (
+        <div class="blocks">
+          {p.blocks.map((b) => {
+            if (b.type === 'text') {
+              return <div class="prose block-text">{b.body.split(/\n\s*\n/).map((para) => <p>{para.trim()}</p>)}</div>;
+            }
+            if (b.type === 'image') {
+              return (
+                <figure class:list={['block-image', { 'is-wide': b.wide }]}>
+                  <Image src={b.src} alt={b.alt} widths={[720, 1200, 1800, 2400]} sizes={b.wide ? '100vw' : '(max-width: 1440px) 92vw, 1300px'} />
+                  {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+                </figure>
+              );
+            }
+            if (b.type === 'heading') {
+              return (
+                <header class="block-heading">
+                  {b.label && <p class="block-heading__label mono">{b.label}</p>}
+                  <h2>{b.title}</h2>
+                  {b.text && <p class="block-heading__text">{b.text}</p>}
+                </header>
+              );
+            }
+            if (b.type === 'nodes') {
+              return (
+                <figure class="block-nodes">
+                  <div class="nodes" style={`--n: ${b.columns.length}`}>
+                    {b.columns.map((col, ci) => (
+                      <div class="nodes__col">
+                        <p class="nodes__label mono"><span>{String(ci + 1).padStart(2, '0')}</span> {col.label}</p>
+                        {col.items.map((it) => (
+                          <div class="node">
+                            <span class="node__port node__port--in" aria-hidden="true"></span>
+                            <Image src={it.src} alt="" widths={[240, 400]} sizes="200px" />
+                            <span class="node__name mono">{it.label}</span>
+                            <span class="node__port node__port--out" aria-hidden="true"></span>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                  {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+                </figure>
+              );
+            }
+            if (b.type === 'images') {
+              return (
+                <figure class="block-images" style={`--cols: ${b.items.length}`}>
+                  {b.items.map((it) => (
+                    <Image src={it.src} alt={it.alt} widths={[480, 720, 1200]} sizes={`(max-width: 700px) 92vw, ${Math.round(92 / b.items.length)}vw`} />
+                  ))}
+                  {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+                </figure>
+              );
+            }
+            const src = embedUrl(b.url);
+            return src ? (
+              <figure class="block-video">
+                <div class="embed" style={`--ratio: ${b.ratio}`} data-ratio={b.ratio}>
+                  <iframe src={src} title={b.title ?? `${p.title} — video`} allow="autoplay; fullscreen; picture-in-picture; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
+                </div>
+                {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+              </figure>
+            ) : null;
+          })}
+        </div>
+      )}
+
+      {p.external && (
+        <p class="project__external">
+          <a class="btn" href={p.external.url} target="_blank" rel="noopener">{p.external.label} ↗</a>
+        </p>
+      )}
+
+      {cs && (cs.deliverables.length > 0 || cs.results.length > 0 || cs.credits.length > 0) && (
+        <section class="case case--end" aria-label={t.outcome}>
+          {cs.results.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">{t.caseH.results}</h2>
+              <ul class="case__results">
+                {cs.results.map((r) => (
+                  <li><strong>{r.value}</strong><span class="mono">{r.label}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {cs.deliverables.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">{t.caseH.deliverables}</h2>
+              <ul class="case__list">{cs.deliverables.map((d) => <li>{d}</li>)}</ul>
+            </div>
+          )}
+          {cs.credits.length > 0 && (
+            <div class="case__row">
+              <h2 class="case__h mono">{t.caseH.credits}</h2>
+              <dl class="case__credits">
+                {cs.credits.map((c) => (
+                  <div><dt class="mono">{c.role}</dt><dd>{c.name}</dd></div>
+                ))}
+              </dl>
+            </div>
+          )}
+        </section>
+      )}
+
+      {next && nextData ? (
+        <a class="next" href={href(lang, `/work/${next.id}/`)}>
+          <p class="label"><span class="tc">{t.nextIn(section.label)}</span><span>{nextData.category}</span></p>
+          <span class="next__title">{nextData.title}&nbsp;→</span>
+        </a>
+      ) : (
+        <a class="next" href={href(lang, `/#work-${p.section}`)}>
+          <p class="label"><span class="tc">{t.back}</span><span>{section.label}</span></p>
+          <span class="next__title">{t.allIn(section.label)}&nbsp;→</span>
+        </a>
+      )}
+    </div>
+  </article>
+</Base>

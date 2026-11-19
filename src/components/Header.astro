@@ -1,20 +1,26 @@
 ---
-const { current = 'home' } = Astro.props as { current?: 'home' | 'work' };
+import { href, ui, type Lang } from '../i18n';
+const { current = 'home', lang = 'en', alt = '/es/' } = Astro.props as { current?: 'home' | 'work'; lang?: Lang; alt?: string };
+const t = ui[lang];
 const links = [
-  { href: '/#work', label: 'Work' },
-  { href: '/#about', label: 'About' },
-  { href: '/#capabilities', label: 'Capabilities' },
-  { href: '/#contact', label: 'Contact' },
+  { href: href(lang, '/#work'), label: t.nav.work, key: 'work' },
+  { href: href(lang, '/#about'), label: t.nav.about, key: 'about' },
+  { href: href(lang, '/#contact'), label: t.nav.contact, key: 'contact' },
 ];
 ---
 
 <header class="site-header" data-header>
   <div class="wrap">
-    <a class="logo" href="/" aria-label="Lautaro Ferrandi — home"></a>
-    <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span></span><span></span><span></span></button>
+    <a class="logo" href={href(lang, '/')} aria-label={t.home}></a>
+    <a class="lang-switch mono" href={alt} hreflang={lang === 'en' ? 'es' : 'en'} lang={lang === 'en' ? 'es' : 'en'} aria-label={t.langSwitch} data-lang-switch data-lang={lang}>
+      <span class:list={['lang-switch__opt', { 'is-on': lang === 'en' }]}>EN</span>
+      <span class:list={['lang-switch__opt', { 'is-on': lang === 'es' }]}>ES</span>
+      <span class="lang-switch__knob" aria-hidden="true"></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span></span><span></span><span></span></button>
     <nav class="nav mono" id="site-nav" aria-label="Main">
       <ul>
-        {links.map((l) => <li><a href={l.href} aria-current={current === 'work' && l.label === 'Work' ? 'page' : undefined}>{l.label}</a></li>)}
+        {links.map((l) => <li><a href={l.href} aria-current={current === 'work' && l.key === 'work' ? 'page' : undefined}>{l.label}</a></li>)}
       </ul>
     </nav>
   </div>

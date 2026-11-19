@@ -1,5 +1,8 @@
 ---
-import { hero, site } from '../data/site';
+import { copy, ui, type Lang } from '../i18n';
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const { hero, site } = copy(lang);
+const t = ui[lang];
 ---
 
 <section class="hero" aria-labelledby="hero-title" data-fluid>
@@ -29,8 +32,8 @@ import { hero, site } from '../data/site';
       <p class="hero__greeting">{hero.greeting}</p>
       <h1 id="hero-title">{hero.lines.map((l) => <span>{l}</span>)}</h1>
       <div class="hero__actions">
-        {site.reel && <a class="btn btn--red" href={site.reel} target="_blank" rel="noopener">▶ Watch reel</a>}
-        <a class="btn" href="#work">Selected work</a>
+        {site.reel && <a class="btn btn--red" href={site.reel} target="_blank" rel="noopener">{t.watchReel}</a>}
+        <a class="btn" href="#work">{t.selectedWork}</a>
       </div>
     </div>
   </div>
@@ -38,7 +41,7 @@ import { hero, site } from '../data/site';
   <div class="hero__bar mono">
     <div class="wrap">
       <span class="rec" aria-hidden="true">TC <span data-timecode>00:00:00:00</span></span>
-      <a href="#work">Scroll ↓</a>
+      <a href="#work">{t.scroll}</a>
     </div>
   </div>
 </section>
