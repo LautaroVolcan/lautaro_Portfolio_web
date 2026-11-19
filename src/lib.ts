@@ -1,8 +1,17 @@
 import { getCollection } from 'astro:content';
+import { sections } from './data/site';
 
+const sectionIndex = (id: string) => sections.findIndex((s) => s.id === id);
+
+/** All published projects, grouped by section (Art, Films, Commercial) and then by `order`. */
 export async function getProjects() {
   const all = await getCollection('projects', ({ data }) => !data.draft);
-  return all.sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
+  return all.sort(
+    (a, b) =>
+      sectionIndex(a.data.section) - sectionIndex(b.data.section) ||
+      a.data.order - b.data.order ||
+      a.data.title.localeCompare(b.data.title),
+  );
 }
 
 /** Turns a Vimeo/YouTube/Adobe (Behance)/Sketchfab URL into an embeddable player URL. Returns null for anything else. */

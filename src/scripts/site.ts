@@ -128,3 +128,43 @@ if (heroCard && heroSection && !reduceMotion && window.matchMedia('(hover: hover
   heroCard.addEventListener('pointerenter', () => { over = true; kick(); });
   heroCard.addEventListener('pointerleave', () => { over = false; kick(); });
 }
+
+// --- Work tabs: Art / Films / Commercial -------------------------------------------------------
+
+const tablist = document.querySelector<HTMLElement>('[data-work-tabs]');
+if (tablist) {
+  const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[data-tab]'));
+  const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-panel]'));
+  const select = (id: string, focus = false) => {
+    tabs.forEach((t) => {
+      const on = t.dataset.tab === id;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+    });
+    panels.forEach((p) => {
+      p.hidden = p.dataset.panel !== id;
+      if (!p.hidden) p.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
+    });
+  };
+  tablist.hidden = false;
+  document.documentElement.classList.add('has-work-tabs');
+  // a link like /#work-films opens that tab
+  const fromHash = location.hash.match(/^#work-(\w+)/)?.[1];
+  select(tabs.some((t) => t.dataset.tab === fromHash) ? fromHash! : tabs[0].dataset.tab!);
+  if (fromHash) document.getElementById('work')?.scrollIntoView();
+
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => {
+      select(t.dataset.tab!);
+      history.replaceState(null, '', `#work-${t.dataset.tab}`);
+    });
+    t.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      const next = tabs[(i + d + tabs.length) % tabs.length];
+      select(next.dataset.tab!, true);
+    });
+  });
+}

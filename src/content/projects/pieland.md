@@ -2,9 +2,10 @@
 title: PieLand Bakery
 summary: A donut turned runway model — a 3D concept for the bakery Pieland, where fashion meets food.
 category: 3D / Marketing content
+section: commercial
 year: 2023
 tools: [Blender]
-order: 5
+order: 1
 cover: ../../assets/projects/pieland.png
 coverAlt: 3D render of a pink donut with colorful sprinkles falling around it
 video: https://www-ccv.adobe.io/v1/player/ccv/RNidzS4kWKr/embed?api_key=behance1&bgcolor=%23191919

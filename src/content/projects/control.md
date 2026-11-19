@@ -2,6 +2,7 @@
 title: Control
 summary: An interactive virtual reality installation, conceived as an open work that each visitor completes.
 category: Interactive installation
+section: art
 year: 2023
 tools: [Virtual reality]
 order: 3

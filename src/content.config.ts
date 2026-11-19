@@ -10,6 +10,25 @@ const projects = defineCollection({
       /** One line shown under the title on the project page and in link previews. */
       summary: z.string(),
       category: z.string(),
+      /** Which tab of Work the project lives in: art, films or commercial. */
+      section: z.enum(['art', 'films', 'commercial']),
+      /**
+       * Case study, for commercial work. Every field is optional; the page shows the parts
+       * that are filled in, in this order: brief → idea → process → deliverables → results → credits.
+       */
+      caseStudy: z
+        .object({
+          /** Be honest about what the project was: shown as a small tag next to the client. */
+          kind: z.enum(['client', 'spec', 'pitch', 'concept']).default('client'),
+          brief: z.string().optional(),
+          challenge: z.string().optional(),
+          idea: z.string().optional(),
+          process: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+          deliverables: z.array(z.string()).default([]),
+          results: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
+          credits: z.array(z.object({ role: z.string(), name: z.string() })).default([]),
+        })
+        .optional(),
       year: z.number().int().optional(),
       client: z.string().optional(),
       role: z.string().optional(),

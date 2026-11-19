@@ -25,11 +25,13 @@ export const hero = {
 };
 
 export const about = {
-  lead: 'This is where image meets story — a space built around my obsession with audiovisual art in all its forms. I work at the crossroads of technology, narrative, and visual communication, always looking for that moment when something on a screen genuinely moves someone.',
+  lead: "I'm a creative and multimedia designer based in Barcelona. I take an idea from the brief to the finished piece — concept, edit, motion, 3D and AI-assisted imagery — for brands, campaigns and my own projects.",
   body: [
-    "I'm a video editor, VJ, and documentary filmmaker based in Barcelona. I trained in Image Design at the Universidad Nacional de La Plata, in Argentina. Over the past five years I've worked across music videos, live visual performances, interactive installations, and documentary projects — each one a different way of asking the same question: how do images make people feel?",
-    'On the editing side, I focus on rhythm and emotion — cutting not just to what looks good, but to what lands. As a VJ, I bring visuals into dialogue with live music, turning a performance into something you experience as much as you hear. My installations invite audiences to step inside the work and interact with it directly. And through documentary, I try to give honest screen time to the stories and voices that don\'t always get it.',
-    "If any of that connects with what you're working on, I'd love to hear from you.",
+    "Right now I'm Senior Video Specialist at Factorial, where I make paid social and brand content for Meta, TikTok and Instagram: hooks, ad variations, motion pieces and the systems that let a small team ship a lot of them without losing quality.",
+    "I trained in Image Design at the Universidad Nacional de La Plata, in Argentina, and later added UX/UI and front-end development. That mix is how I work: I think about who the piece is for and where it will be seen before I think about how it looks, and I can build most of it myself.",
+    "I use generative AI as part of the toolbox — for previs, plates, variations and speed — and keep the decisions about story, rhythm and taste on my side of the table.",
+    "Outside client work I keep a studio practice: interactive installations, live visuals and documentary. It is where I test ideas that later end up in commercial projects.",
+    "If you have a brief, a launch or a half-formed idea, write to me.",
   ],
 };
 
@@ -122,6 +124,13 @@ export const capabilities = {
     },
   ],
 };
+
+/** The three tabs of Work, in display order. */
+export const sections = [
+  { id: 'art', label: 'Art', blurb: 'Installations, real-time visuals, music videos and personal research.' },
+  { id: 'films', label: 'Films', blurb: 'Documentary and branded films.' },
+  { id: 'commercial', label: 'Commercial', blurb: 'Campaigns, brand content and creative for clients.' },
+] as const;
 
 /** Section counters styled as SMPTE timecode (HH:MM:SS:FF). */
 export const tc = (n: number) => `00:00:${String(n).padStart(2, '0')}:00`;
