@@ -21,7 +21,7 @@ export const site = {
 
 export const hero = {
   greeting: "Hello, I'm Lautaro",
-  lines: ['Video Designer', 'and Multimedia Artist', 'Based on the Internet.'],
+  lines: ['Video Designer', 'and Multimedia Artist.'],
 };
 
 export const about = {

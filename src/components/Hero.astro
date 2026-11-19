@@ -5,6 +5,7 @@ import { hero, site } from '../data/site';
 <section class="hero" aria-labelledby="hero-title" data-fluid>
   <div class="hero__stage" data-hero-stage>
     <figure class="hero__media">
+      <div class="hero__card" data-hero-card>
       <video
         data-hero-video
         autoplay
@@ -17,6 +18,9 @@ import { hero, site } from '../data/site';
       >
         <source src="/video/hero-loop.mp4" type="video/mp4" />
       </video>
+        <span class="hero__sheen" aria-hidden="true"></span>
+        <span class="hero__rim" aria-hidden="true"></span>
+      </div>
     </figure>
   </div>
 
