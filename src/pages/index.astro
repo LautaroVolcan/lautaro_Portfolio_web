@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Label from '../components/Label.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import FolderDefs from '../components/FolderDefs.astro';
 import { getProjects } from '../lib';
 import { site, about, work, education, capabilities } from '../data/site';
 
@@ -12,10 +13,11 @@ const projects = await getProjects();
 <Base>
   <Hero />
 
-  <section class="section" id="work" aria-labelledby="work-title">
+  <section class="section" id="work" aria-labelledby="work-title" data-fluid>
     <div class="wrap">
       <Label n={1} text="Selected work" />
       <h2 class="section__title" id="work-title">Work</h2>
+      <FolderDefs />
       <div class="works">
         {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
       </div>
@@ -30,10 +32,6 @@ const projects = await getProjects();
         <p class="about__lead" data-reveal>{about.lead}</p>
         <div class="about__body" data-reveal>
           {about.body.map((p) => <p>{p}</p>)}
-          <div class="about__actions">
-            <a class="btn btn--red" href="#contact">Hire me</a>
-            <a class="btn" href={site.cv} target="_blank" rel="noopener">Download CV</a>
-          </div>
         </div>
       </div>
 

@@ -88,26 +88,10 @@ if (window.matchMedia('(hover: hover)').matches) {
   });
 }
 
-// --- WebGL layers: loaded after the page is interactive, never block content ---------------
+// --- Liquid gradient behind the hero and Work (home only) ------------------------------------
 
-function webglOk() {
-  if (reduceMotion) return false;
-  // @ts-expect-error: not in every TS lib yet
-  if (navigator.connection?.saveData) return false;
-  try {
-    const c = document.createElement('canvas');
-    return !!c.getContext('webgl2');
-  } catch {
-    return false;
-  }
-}
+import { initFluidBackground } from './fluid-bg';
 
-const idle = (fn: () => void) =>
-  'requestIdleCallback' in window ? window.requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 300);
-
-if (webglOk()) {
-  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-card]'));
-  if (cards.length && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    idle(() => import('./grid-crt').then(({ initGridCrt }) => initGridCrt(cards)));
-  }
-}
+const fluidSections = Array.from(document.querySelectorAll<HTMLElement>('[data-fluid]'));
+// @ts-expect-error: not in every TS lib yet
+if (fluidSections.length && !navigator.connection?.saveData) initFluidBackground(fluidSections);
