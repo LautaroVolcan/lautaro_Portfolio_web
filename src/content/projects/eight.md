@@ -1,6 +1,6 @@
 ---
 title: EIGHT
-summary: A streetwear brand that doesn't exist, launched with a photo campaign that looks like it does. Identity, product, casting, sets and six campaign frames, built as one AI pipeline.
+summary: A streetwear brand that doesn't exist, launched with a photo campaign that looks like it does. Identity, product, casting, ten sets and a campaign shot by day and by night, built as one AI pipeline.
 category: Brand & photo campaign
 section: commercial
 client: EIGHT (fictional brand)
@@ -13,9 +13,10 @@ coverAlt: A woman with a platinum bob wears a faded cherry-red EIGHT cap pulled 
 gallery:
   - { src: ../../assets/projects/eight/12-frame-cap.jpg, alt: Lía against a mint wall, the EIGHT cap pulled low over her eyes. }
   - { src: ../../assets/projects/eight/11-frame-socks.jpg, alt: Inti on a chrome chair pulling on red EIGHT socks. }
-  - { src: ../../assets/projects/eight/13-frame-kitchen.jpg, alt: Lía crouching on the kitchen floor with two tomatoes over her eyes, the EIGHT fanny pack crossbody. }
-  - { src: ../../assets/projects/eight/15-frame-still-life.jpg, alt: The EIGHT cap on a blue doorstep with sunglasses, cherries and an espresso cup. }
+  - { src: ../../assets/projects/eight/18-frame-bedroom.jpg, alt: Lía sitting on an unmade 70s bed in the EIGHT cap, holding cream sunglasses. }
   - { src: ../../assets/projects/eight/14-frame-inti.jpg, alt: Inti sitting in the living room in the EIGHT cap and socks. }
+  - { src: ../../assets/projects/eight/17-frame-sofa.jpg, alt: Seen from above, Lía lying on a black leather sofa behind a magazine, in EIGHT socks. }
+  - { src: ../../assets/projects/eight/19-frame-bar.jpg, alt: Inti on a red stool at a Barcelona neighbourhood bar, the EIGHT cap on and the fanny pack crossbody. }
   - { src: ../../assets/projects/eight/16-frame-newspaper.jpg, alt: Lía hiding behind a newspaper in the living room, wearing EIGHT socks. }
 caseStudy:
   kind: concept
@@ -37,15 +38,15 @@ caseStudy:
     - title: Casting
       text: Character sheets for Inti and Lía — front, back, face and the details that make them recognisable (rings, tattoo, cherry earring, red nails).
     - title: Sets
-      text: Four locations with one look — a 70s living room, a kitchen, a pink bathroom and a sunny side street. 35 mm, direct flash, hard shadows.
+      text: Ten locations with one look — a 70s living room, kitchen, bedroom and pink bathroom, a sunny side street, a Barcelona rooftop, a neighbourhood bar, a black leather sofa, a metro photo booth and a phone booth. 35 mm, direct flash, hard shadows.
     - title: Photos
-      text: Six frames in 4:5 and 9:16. Each one takes a model, a product and a set as references; the prompt only directs pose, framing and light.
+      text: Day and night frames in 4:5 and 9:16. Each one takes a model, a product and a set as references; the prompt only directs pose, framing and light.
   deliverables:
     - Brand identity sheet — wordmark, monogram and woven label
     - 3 product packshots
     - 2 character sheets
-    - 4 set plates
-    - 6 campaign photos for feed (4:5) and stories (9:16)
+    - 10 set plates
+    - 9 campaign photos for feed (4:5) and stories (9:16)
     - A reusable node board in Magnific Spaces — edit one description and the chain regenerates
   credits:
     - role: Creative direction & AI pipeline
@@ -77,7 +78,7 @@ blocks:
         items:
           - { src: ../../assets/projects/eight/11-frame-socks.jpg, label: Frame 1 — Living }
           - { src: ../../assets/projects/eight/12-frame-cap.jpg, label: Frame 2 — Street }
-          - { src: ../../assets/projects/eight/13-frame-kitchen.jpg, label: Frame 3 — Kitchen }
+          - { src: ../../assets/projects/eight/19-frame-bar.jpg, label: Frame 11 — Bar }
     caption: Simplified view of the Magnific Spaces board. Logo → packshots; casting, product and set → each frame.
   - type: heading
     label: 01 · Identity & product
@@ -89,7 +90,7 @@ blocks:
   - type: images
     items:
       - { src: ../../assets/projects/eight/02-cap.jpg, alt: Faded cherry-red cap with EIGHT embroidered in cream, with an inset of the back strap and monogram. }
-      - { src: ../../assets/projects/eight/03-fanny-pack.jpg, alt: Cherry-red waxed canvas fanny pack with a cream strap and a woven EIGHT label. }
+      - { src: ../../assets/projects/eight/03-fanny-pack.jpg, alt: Cherry-red waxed canvas fanny pack with a cream strap and EIGHT embroidered in raised cream letters. }
       - { src: ../../assets/projects/eight/04-socks.jpg, alt: Red socks with a cream windowpane grid and the 8 monogram on the ankle. }
     caption: Packshots. The logo node is the reference for all three, so the lettering is identical.
   - type: heading
@@ -104,8 +105,8 @@ blocks:
     alt: Character sheet for Lía — full body front and back, face, red eyeliner, red nails, cherry earring and freckles.
   - type: heading
     label: 03 · Sets
-    title: Four rooms, one look
-    text: Empty plates first, so each set exists before anyone walks into it. Same film stock, same flash, same warm cast.
+    title: Ten sets, one look
+    text: Empty plates first, so each set exists before anyone walks into it. Same film stock and the same direct flash throughout — warm in the daytime rooms, hard against the dark at night.
   - type: images
     items:
       - { src: ../../assets/projects/eight/07-living.jpg, alt: 70s living room with a teak sideboard, plants, a lamp and a chrome chair, lit by direct flash. }
@@ -114,6 +115,19 @@ blocks:
     items:
       - { src: ../../assets/projects/eight/09-bathroom.jpg, alt: Pink vintage washbasin with a gold faucet, a lilac hairbrush and rings. }
       - { src: ../../assets/projects/eight/10-street.jpg, alt: Sunny Mediterranean side street with pastel walls, a green door and a red scooter. }
+  - type: images
+    items:
+      - { src: ../../assets/projects/eight/20-bedroom.jpg, alt: 70s bedroom with an unmade bed, a geometric orange bedspread, floral wallpaper and a mirrored wardrobe. }
+      - { src: ../../assets/projects/eight/25-leather-sofa.jpg, alt: Seen from above at night, a worn black leather sofa, a brown armchair and a glass side table with magazines. }
+  - type: images
+    items:
+      - { src: ../../assets/projects/eight/22-bar.jpg, alt: Old-school Barcelona bar with a steel counter, green azulejo tiles, red stools and a hanging jamón. }
+      - { src: ../../assets/projects/eight/21-rooftop.jpg, alt: Barcelona rooftop terrace with sheets and towels drying on clotheslines over the city. }
+  - type: images
+    items:
+      - { src: ../../assets/projects/eight/23-photo-booth.jpg, alt: Blue and orange photo booth in a metro passageway at night. }
+      - { src: ../../assets/projects/eight/24-phone-booth.jpg, alt: Graffiti-covered phone booth on a Barcelona street corner at blue hour. }
+    caption: The new sets — bedroom, leather sofa, bar, rooftop, photo booth and phone booth.
   - type: heading
     label: 04 · Campaign
     title: The photos
@@ -125,10 +139,15 @@ blocks:
       - { src: ../../assets/projects/eight/15-frame-still-life.jpg, alt: Still life on a blue doorstep — the EIGHT cap, cat-eye sunglasses, two cherries and an espresso cup. }
   - type: images
     items:
+      - { src: ../../assets/projects/eight/17-frame-sofa.jpg, alt: Seen from above, Lía lying on a black leather sofa behind a magazine, in EIGHT socks. }
+      - { src: ../../assets/projects/eight/18-frame-bedroom.jpg, alt: Lía sitting on an unmade 70s bed in the EIGHT cap, holding cream sunglasses. }
+  - type: images
+    items:
       - { src: ../../assets/projects/eight/13-frame-kitchen.jpg, alt: Lía crouching on the kitchen floor holding two tomatoes over her eyes, the EIGHT fanny pack crossbody. }
       - { src: ../../assets/projects/eight/14-frame-inti.jpg, alt: Inti sitting in the living room in the EIGHT cap and socks. }
+      - { src: ../../assets/projects/eight/19-frame-bar.jpg, alt: Inti on a red stool at a Barcelona neighbourhood bar, the EIGHT cap on and the fanny pack crossbody. }
       - { src: ../../assets/projects/eight/16-frame-newspaper.jpg, alt: Lía hiding behind an open newspaper in the living room, wearing EIGHT socks and loafers. }
-    caption: Six frames — 4:5 for the feed, 9:16 for stories.
+    caption: Nine frames, day and night — 4:5 for the feed, 9:16 for stories.
 ---
 
 A fictional brand, built to show the process end to end: from a blank board to a campaign that could run on Instagram tomorrow.

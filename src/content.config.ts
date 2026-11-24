@@ -57,7 +57,7 @@ const projects = defineCollection({
         .array(
           z.discriminatedUnion('type', [
             z.object({ type: z.literal('image'), src: image(), alt: z.string(), caption: z.string().optional(), wide: z.boolean().default(false) }),
-            z.object({ type: z.literal('images'), items: z.array(z.object({ src: image(), alt: z.string() })).min(2).max(3), caption: z.string().optional() }),
+            z.object({ type: z.literal('images'), items: z.array(z.object({ src: image(), alt: z.string() })).min(2).max(4), caption: z.string().optional() }),
             z.object({ type: z.literal('video'), url: z.string().url(), ratio: z.string().default('16/9'), title: z.string().optional(), caption: z.string().optional() }),
             z.object({ type: z.literal('text'), body: z.string() }),
             /** A small section title inside the blocks, e.g. "02 · Product". */
