@@ -86,3 +86,10 @@ Para el reel: pega el link en `reel` dentro de `src/data/site.ts` y aparece el b
 - La versión principal es en inglés (`/`); la española vive en `/es/`. El interruptor EN/ES del header lleva a la misma página en el otro idioma.
 - Textos de la home en español: `src/data/site.es.ts` (misma forma que `site.ts`). Textos de interfaz (botones, títulos de sección): `src/i18n.ts`.
 - Proyectos: `src/content/projects-es/<mismo-nombre>.md`. Solo texto: `summary`, `category`, `role`, `client`, `coverAlt`, `caseStudy`, y `blocks` / `gallery` en el mismo orden que el original (solo los campos de texto: `alt`, `caption`, `title`, `text`, `label`). El cuerpo del .md es la descripción. Lo que falte se muestra en inglés.
+
+## Detalles automáticos (no hace falta tocar nada)
+
+- **Lightbox:** cualquier imagen de los bloques `image` / `images` se puede abrir grande (flechas, swipe, Esc).
+- **Barra de progreso** de lectura en las páginas de proyecto.
+- **SEO:** `sitemap.xml` con las dos versiones de cada página, `robots.txt`, datos estructurados (Person en la home, CreativeWork en cada proyecto) e imagen para compartir de cada proyecto (sale de su portada).
+- **Transiciones** suaves entre páginas en navegadores que las soportan (Chrome, Safari 18+).

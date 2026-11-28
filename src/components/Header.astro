@@ -1,7 +1,8 @@
 ---
-import { href, ui, type Lang } from '../i18n';
+import { copy, href, ui, type Lang } from '../i18n';
 const { current = 'home', lang = 'en', alt = '/es/' } = Astro.props as { current?: 'home' | 'work'; lang?: Lang; alt?: string };
 const t = ui[lang];
+const { site } = copy(lang);
 const links = [
   { href: href(lang, '/#work'), label: t.nav.work, key: 'work' },
   { href: href(lang, '/#about'), label: t.nav.about, key: 'about' },
@@ -11,8 +12,12 @@ const links = [
 
 <header class="site-header" data-header>
   <div class="wrap">
-    <a class="logo" href={href(lang, '/')} aria-label={t.home}></a>
-    <a class="lang-switch mono" href={alt} hreflang={lang === 'en' ? 'es' : 'en'} lang={lang === 'en' ? 'es' : 'en'} aria-label={t.langSwitch} data-lang-switch data-lang={lang}>
+    <a class="logo" href={href(lang, '/')}>
+      <span class="logo__dot" aria-hidden="true"></span>
+      <span class="logo__name mono">Lautaro Ferrandi</span>
+    </a>
+    <a class="lang-switch mono" href={alt} hreflang={lang === 'en' ? 'es' : 'en'} data-lang-switch data-lang={lang}>
+      <span class="sr-only" lang={lang === 'en' ? 'es' : 'en'}>{t.langSwitch}: </span>
       <span class:list={['lang-switch__opt', { 'is-on': lang === 'en' }]}>EN</span>
       <span class:list={['lang-switch__opt', { 'is-on': lang === 'es' }]}>ES</span>
       <span class="lang-switch__knob" aria-hidden="true"></span>
@@ -20,8 +25,14 @@ const links = [
     <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span></span><span></span><span></span></button>
     <nav class="nav mono" id="site-nav" aria-label="Main">
       <ul>
-        {links.map((l) => <li><a href={l.href} aria-current={current === 'work' && l.key === 'work' ? 'page' : undefined}>{l.label}</a></li>)}
+        {links.map((l) => <li><a href={l.href} data-nav={l.key} aria-current={current === 'work' && l.key === 'work' ? 'page' : undefined}>{l.label}</a></li>)}
       </ul>
+      <div class="nav__extra">
+        <a class="nav__mail" href={`mailto:${site.email}`}>{site.email}</a>
+        <ul class="nav__socials">
+          {site.socials.slice(0, 4).map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.label} ↗</a></li>)}
+        </ul>
+      </div>
     </nav>
   </div>
 </header>

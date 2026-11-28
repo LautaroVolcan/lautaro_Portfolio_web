@@ -3,11 +3,15 @@ import Base from '../layouts/Base.astro';
 ---
 
 <Base title="Signal lost — Lautaro Ferrandi">
-  <section class="project">
+  <section class="project notfound">
     <div class="wrap">
-      <p class="label"><span class="tc">404</span><span>No signal</span></p>
+      <p class="label"><span class="tc">404</span><span>No signal · Sin señal</span></p>
       <h1>This frame doesn't exist.</h1>
-      <p class="project__summary"><a href="/">Back to the start →</a></p>
+      <p class="project__summary" lang="es">Este fotograma no existe.</p>
+      <div class="hero__actions">
+        <a class="btn btn--red" href="/">Back to the start →</a>
+        <a class="btn btn--ghost" href="/es/" lang="es">Volver al inicio →</a>
+      </div>
     </div>
   </section>
 </Base>

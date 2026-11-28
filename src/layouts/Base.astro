@@ -4,6 +4,9 @@ import '@fontsource/frank-ruhl-libre/500.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
+import serif400 from '@fontsource/frank-ruhl-libre/files/frank-ruhl-libre-latin-400-normal.woff2?url';
+import serif500 from '@fontsource/frank-ruhl-libre/files/frank-ruhl-libre-latin-500-normal.woff2?url';
+import mono400 from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { copy, altPath, ui, type Lang } from '../i18n';
@@ -18,7 +21,7 @@ interface Props {
 
 const { lang = 'en', current = 'home' } = Astro.props;
 const { site } = copy(lang);
-const { title = site.title, description = site.description, image = '/og-image.jpg' } = Astro.props;
+const { title = site.title, description = site.description, image = lang === 'es' ? '/og-image-es.jpg' : '/og-image.jpg' } = Astro.props;
 const alt = altPath(lang, Astro.url.pathname);
 const enPath = lang === 'en' ? Astro.url.pathname : alt;
 const esPath = lang === 'es' ? Astro.url.pathname : alt;
@@ -39,6 +42,9 @@ const ogImage = new URL(image, Astro.site);
     <link rel="alternate" hreflang="es" href={new URL(esPath, Astro.site)} />
     <link rel="alternate" hreflang="x-default" href={new URL(enPath, Astro.site)} />
     <meta name="theme-color" content="#0a0a0a" />
+    <link rel="preload" href={serif400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={serif500} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={mono400} as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />

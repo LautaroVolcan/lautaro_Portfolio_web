@@ -1,13 +1,40 @@
 ---
-import { site } from '../data/site';
-import { ui, type Lang } from '../i18n';
+import { copy, href, ui, type Lang } from '../i18n';
 const { lang = 'en' } = Astro.props as { lang?: Lang };
+const { site } = copy(lang);
+const t = ui[lang];
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer mono">
+<footer class="site-footer">
   <div class="wrap">
-    <span>© {year} {site.name} — Barcelona</span>
-    <a href="#top" data-top>{ui[lang].backToTop}</a>
+    <div class="site-footer__grid">
+      <div class="site-footer__id">
+        <a class="logo" href={href(lang, '/')}>
+          <span class="logo__dot" aria-hidden="true"></span>
+          <span class="logo__name mono">{site.name}</span>
+        </a>
+        <p class="site-footer__role">{t.footerRole}</p>
+        <a class="site-footer__mail" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <nav class="site-footer__col mono" aria-label={t.footerNav}>
+        <p class="site-footer__h">{t.footerNav}</p>
+        <ul>
+          <li><a href={href(lang, '/#work')}>{t.nav.work}</a></li>
+          <li><a href={href(lang, '/#about')}>{t.nav.about}</a></li>
+          <li><a href={href(lang, '/#contact')}>{t.nav.contact}</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer__col mono">
+        <p class="site-footer__h">{t.footerElsewhere}</p>
+        <ul>
+          {site.socials.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.label} ↗</a></li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__base mono">
+      <span>© {year} {site.name} — Barcelona</span>
+      <a href="#top" data-top>{t.backToTop}</a>
+    </div>
   </div>
 </footer>

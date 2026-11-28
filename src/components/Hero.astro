@@ -33,7 +33,8 @@ const t = ui[lang];
       <h1 id="hero-title">{hero.lines.map((l) => <span>{l}</span>)}</h1>
       <div class="hero__actions">
         {site.reel && <a class="btn btn--red" href={site.reel} target="_blank" rel="noopener">{t.watchReel}</a>}
-        <a class="btn" href="#work">{t.selectedWork}</a>
+        <a class:list={['btn', { 'btn--red': !site.reel }]} href="#work">{t.selectedWork} <span aria-hidden="true">↓</span></a>
+        <a class="btn btn--ghost" href="#contact">{t.getInTouchCta}</a>
       </div>
     </div>
   </div>

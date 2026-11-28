@@ -12,8 +12,10 @@ interface Props {
   lang?: Lang;
   /** Translated data, when not English. */
   data?: CollectionEntry<'projects'>['data'];
+  /** Only the first visible cards load right away; the rest (and other tabs) load lazily. */
+  eager?: boolean;
 }
-const { project, index, lang = 'en', data } = Astro.props;
+const { project, index, lang = 'en', data, eager = false } = Astro.props;
 const p = data ?? project.data;
 // a slightly different resting angle per card, so the row doesn't look stamped
 const tilt = [-2.2, 1.4, -0.8, 2, -1.6, 0.9][index % 6];
@@ -42,8 +44,8 @@ const frontRim = 'M6 215 L6 160 Q6 122 44 122 L250 122 Q267 122 276 108 L285 94 
         src={p.cover}
         alt={p.coverAlt}
         widths={[480, 720, 1080]}
-        sizes="(max-width: 700px) 86vw, (max-width: 1100px) 42vw, 28vw"
-        loading={index < 3 ? 'eager' : 'lazy'}
+        sizes="(max-width: 640px) 44vw, (max-width: 1100px) 42vw, 28vw"
+        loading={eager ? 'eager' : 'lazy'}
         data-card-img
       />
       {p.loop && <video data-card-loop src={p.loop} muted loop playsinline preload="none" aria-hidden="true"></video>}
