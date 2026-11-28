@@ -21,7 +21,7 @@ interface Props {
 
 const { lang = 'en', current = 'home' } = Astro.props;
 const { site } = copy(lang);
-const { title = site.title, description = site.description, image = '/og-image.jpg' } = Astro.props;
+const { title = site.title, description = site.description, image = lang === 'es' ? '/og-image-es.jpg' : '/og-image.jpg' } = Astro.props;
 const alt = altPath(lang, Astro.url.pathname);
 const enPath = lang === 'en' ? Astro.url.pathname : alt;
 const esPath = lang === 'es' ? Astro.url.pathname : alt;

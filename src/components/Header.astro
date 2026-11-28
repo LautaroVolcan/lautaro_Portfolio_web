@@ -1,7 +1,8 @@
 ---
-import { href, ui, type Lang } from '../i18n';
+import { copy, href, ui, type Lang } from '../i18n';
 const { current = 'home', lang = 'en', alt = '/es/' } = Astro.props as { current?: 'home' | 'work'; lang?: Lang; alt?: string };
 const t = ui[lang];
+const { site } = copy(lang);
 const links = [
   { href: href(lang, '/#work'), label: t.nav.work, key: 'work' },
   { href: href(lang, '/#about'), label: t.nav.about, key: 'about' },
@@ -26,6 +27,12 @@ const links = [
       <ul>
         {links.map((l) => <li><a href={l.href} data-nav={l.key} aria-current={current === 'work' && l.key === 'work' ? 'page' : undefined}>{l.label}</a></li>)}
       </ul>
+      <div class="nav__extra">
+        <a class="nav__mail" href={`mailto:${site.email}`}>{site.email}</a>
+        <ul class="nav__socials">
+          {site.socials.slice(0, 4).map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.label} ↗</a></li>)}
+        </ul>
+      </div>
     </nav>
   </div>
 </header>

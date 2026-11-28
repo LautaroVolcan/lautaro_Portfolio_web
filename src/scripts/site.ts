@@ -11,18 +11,22 @@ window.addEventListener('scroll', onScroll, { passive: true });
 // Mobile menu
 const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
 const nav = document.getElementById('site-nav');
-toggle?.addEventListener('click', () => {
-  const open = nav?.classList.toggle('is-open') ?? false;
-  toggle.setAttribute('aria-expanded', String(open));
-});
-nav?.querySelectorAll('a').forEach((a) =>
-  a.addEventListener('click', () => {
-    nav.classList.remove('is-open');
-    toggle?.setAttribute('aria-expanded', 'false');
-  }),
-);
+const setMenu = (open: boolean) => {
+  nav?.classList.toggle('is-open', open);
+  toggle?.setAttribute('aria-expanded', String(open));
+  document.documentElement.classList.toggle('menu-open', open);
+};
+toggle?.addEventListener('click', () => setMenu(!nav?.classList.contains('is-open')));
+nav?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav?.classList.contains('is-open')) { setMenu(false); toggle?.focus(); } });
+window.matchMedia('(min-width: 721px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
 
-// Reveal on scroll
+// Reveal on scroll. Project blocks below the fold join in too (never anything already on screen).
+if (!reduceMotion) {
+  document.querySelectorAll<HTMLElement>('.blocks > *, .case__row, .next').forEach((el) => {
+    if (el.getBoundingClientRect().top > window.innerHeight) el.setAttribute('data-reveal', '');
+  });
+}
 const revealables = document.querySelectorAll<HTMLElement>('[data-reveal]');
 if ('IntersectionObserver' in window && !reduceMotion) {
   const io = new IntersectionObserver(

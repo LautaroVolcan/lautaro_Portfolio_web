@@ -163,15 +163,25 @@ p { margin: 0 0 1.1em; text-wrap: pretty; }
   .menu-toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
   .menu-toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
   .nav {
-    position: fixed; inset: var(--header-h) 0 auto 0;
-    background: var(--bg); border-bottom: 1px solid var(--line);
-    padding: 1.5rem var(--pad) 2rem;
-    display: none;
+    position: fixed; inset: var(--header-h) 0 0 0;
+    background: rgba(10, 10, 10, 0.97); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    padding: 2.5rem var(--pad) 2rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0s 0.3s;
   }
-  .nav.is-open { display: block; }
-  .nav ul { flex-direction: column; gap: 1.25rem; }
-  .nav a { font-size: 0.9rem; }
+  .nav.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity 0.3s var(--ease), transform 0.3s var(--ease); }
+  .nav > ul { flex-direction: column; gap: 0.5rem; }
+  .nav > ul a { font: 500 clamp(2.4rem, 11vw, 3.4rem)/1.15 var(--serif); letter-spacing: -0.01em; text-transform: none; text-shadow: none; }
+  .nav > ul a::after { display: none; }
+  .nav__extra { display: grid; gap: 1.25rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .nav__mail { font: 400 1.05rem/1.3 var(--serif); text-transform: none; letter-spacing: 0; }
+  .nav__socials { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; list-style: none; margin: 0; padding: 0; }
+  .nav__socials a { color: var(--muted); font-size: 0.75rem; }
+  html.menu-open { overflow: hidden; }
+  html.menu-open .site-header { background: rgba(10, 10, 10, 0.97); border-bottom-color: var(--line); }
 }
+@media (min-width: 721px) { .nav__extra { display: none; } }
 
 /* --- hero ------------------------------------------------------------------ */
 
@@ -569,7 +579,9 @@ main > section:not([data-fluid]), .site-footer { position: relative; z-index: 1;
 
 /* --- heading + node diagram blocks ---------------------------------------------- */
 
-.block-heading { padding-top: clamp(2rem, 5vw, 4rem); border-top: 1px solid var(--line); max-width: 62ch; }
+.block-heading { padding-top: clamp(2rem, 5vw, 4rem); border-top: 1px solid var(--line); }
+.block-heading > * { max-width: 62ch; }
+.case + .blocks > .block-heading:first-child { border-top: 0; padding-top: 0; }
 .block-heading h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); margin: 0.4rem 0 0.8rem; }
 .block-heading__label { color: var(--red-text); font-size: 0.75rem; margin: 0; }
 .block-heading__text { margin: 0; color: #cfcbc3; }
