@@ -2,9 +2,9 @@
 
 export const site = {
   name: 'Lautaro Ferrandi',
-  title: 'Lautaro Ferrandi — Video Editor, Motion Designer & Multimedia Artist',
+  title: 'Lautaro Ferrandi — Creative & Multimedia Designer',
   description:
-    'Lautaro Ferrandi is a senior video editor and motion designer based in Barcelona: paid social, motion graphics, VJ visuals, interactive installations and documentary.',
+    'Lautaro Ferrandi is a creative and multimedia designer in Barcelona: brand content, editing, motion, 3D and AI-assisted imagery, plus installations, live visuals and documentary.',
   email: 'lautaroferrandi@gmail.com',
   cv: 'https://drive.google.com/file/d/1Pn3yrs8o7u8h14fKldFHuf7Ay09ZuEo4/view?usp=sharing',
   /** Paste a Vimeo/YouTube URL here when the reel is ready: a "Watch reel" button appears in the hero. */

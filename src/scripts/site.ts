@@ -94,7 +94,14 @@ import { initFluidBackground } from './fluid-bg';
 
 const fluidSections = Array.from(document.querySelectorAll<HTMLElement>('[data-fluid]'));
 // @ts-expect-error: not in every TS lib yet
-if (fluidSections.length && !navigator.connection?.saveData) initFluidBackground(fluidSections);
+if (fluidSections.length && !navigator.connection?.saveData) {
+  // start the WebGL gradient after first paint, so it never delays the hero (the CSS gradient covers until then)
+  const start = () => initFluidBackground(fluidSections);
+  const idle = (window as any).requestIdleCallback as ((cb: () => void, o?: { timeout: number }) => void) | undefined;
+  const later = () => (idle ? idle(start, { timeout: 1200 }) : setTimeout(start, 200));
+  if (document.readyState === 'complete') later();
+  else window.addEventListener('load', later, { once: true });
+}
 
 // --- Hero card: tilted at rest, faces you on hover, follows the pointer a little --------------
 
@@ -250,3 +257,93 @@ document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((a) =
     setTimeout(() => location.assign(url), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 220);
   });
 });
+
+
+// --- Header: highlight the section in view (home) ---------------------------------------------
+
+const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-nav]'));
+const navSections = navLinks
+  .map((a) => document.getElementById(a.dataset.nav!))
+  .filter((el): el is HTMLElement => !!el);
+if (navSections.length && 'IntersectionObserver' in window) {
+  const setActive = (id: string | null) =>
+    navLinks.forEach((a) => a.classList.toggle('is-active', a.dataset.nav === id));
+  const io = new IntersectionObserver(
+    (entries) => {
+      const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActive(visible.target.id);
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  navSections.forEach((s) => io.observe(s));
+  const hero = document.querySelector('.hero');
+  if (hero) new IntersectionObserver(([e]) => e.isIntersecting && setActive(null), { rootMargin: '-45% 0px -50% 0px' }).observe(hero);
+}
+
+// --- Project pages: reading progress under the header ------------------------------------------
+
+const progress = document.querySelector<HTMLElement>('[data-progress]');
+if (progress) {
+  let ticking = false;
+  const draw = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(draw); } }, { passive: true });
+  draw();
+}
+
+// --- Lightbox: click a project image to see it large; arrows / swipe / Esc ---------------------
+
+const box = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+const zoomables = Array.from(document.querySelectorAll<HTMLImageElement>('img[data-zoom]'));
+if (box && zoomables.length && typeof box.showModal === 'function') {
+  const frame = box.querySelector<HTMLElement>('[data-lightbox-frame]')!;
+  const cap = box.querySelector<HTMLElement>('[data-lightbox-cap]')!;
+  let at = 0;
+  // the largest file in the image's srcset
+  const biggest = (img: HTMLImageElement) => {
+    const set = (img.getAttribute('srcset') || '')
+      .split(',')
+      .map((c) => c.trim().split(/\s+/))
+      .filter((c) => c[0])
+      .map(([url, w]) => ({ url, w: parseInt(w) || 0 }))
+      .sort((a, b) => b.w - a.w);
+    return set[0]?.url || img.currentSrc || img.src;
+  };
+  const show = (i: number) => {
+    at = (i + zoomables.length) % zoomables.length;
+    const src = zoomables[at];
+    const img = new Image();
+    img.className = 'lightbox__img';
+    img.alt = src.alt;
+    img.src = biggest(src);
+    frame.replaceChildren(img);
+    cap.textContent = `${String(at + 1).padStart(2, '0')} / ${String(zoomables.length).padStart(2, '0')}${src.alt ? ' — ' + src.alt : ''}`;
+  };
+  zoomables.forEach((img, i) => {
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.addEventListener('click', () => { show(i); box.showModal(); });
+    img.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(i); box.showModal(); }
+    });
+  });
+  box.querySelector('[data-lightbox-close]')?.addEventListener('click', () => box.close());
+  box.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => show(at - 1));
+  box.querySelector('[data-lightbox-next]')?.addEventListener('click', () => show(at + 1));
+  box.addEventListener('click', (e) => { if (e.target === box || e.target === frame) box.close(); });
+  box.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') show(at + 1);
+    if (e.key === 'ArrowLeft') show(at - 1);
+  });
+  let x0: number | null = null;
+  box.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+  box.addEventListener('pointerup', (e) => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 50) show(at + (dx < 0 ? 1 : -1));
+  });
+}

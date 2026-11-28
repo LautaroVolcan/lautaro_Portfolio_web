@@ -32,24 +32,44 @@ const facts = [
   [t.facts.role, p.role],
   [t.facts.tools, p.tools.length ? p.tools.join(', ') : undefined],
 ].filter(([, v]) => v !== undefined && v !== '');
+
+const workLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: p.title,
+  description: p.summary,
+  image: new URL(og.src, Astro.site).href,
+  url: new URL(Astro.url.pathname, Astro.site).href,
+  inLanguage: lang,
+  ...(p.year ? { dateCreated: String(p.year) } : {}),
+  genre: p.category,
+  creator: { '@type': 'Person', name: 'Lautaro Ferrandi', url: new URL('/', Astro.site).href },
+};
+const nextThumb = nextData ? await getImage({ src: nextData.cover, width: 640, format: 'webp', quality: 78 }) : null;
 ---
 
 <Base title={`${p.title} — Lautaro Ferrandi`} description={p.summary} image={og.src} current="work" lang={lang}>
+  <Fragment slot="head"><script is:inline type="application/ld+json" set:html={JSON.stringify(workLd)} /></Fragment>
+  <div class="progress" aria-hidden="true"><span data-progress></span></div>
   <article class="project">
     <div class="wrap">
-      <a class="back mono" href={href(lang, `/#work-${p.section}`)}>← {section.label}</a>
-      <Label n={index + 1} text={`${section.label} · ${p.category}`} />
-      <h1>{p.title}</h1>
-      <p class="project__summary">{p.summary}</p>
+      <header class="project__head">
+        <div class="project__intro">
+          <a class="back mono" href={href(lang, `/#work-${p.section}`)}>← {section.label}</a>
+          <Label n={index + 1} text={`${section.label} · ${p.category}`} />
+          <h1>{p.title}</h1>
+          <p class="project__summary">{p.summary}</p>
+        </div>
 
-      <dl class="facts mono">
-        {facts.map(([k, v]) => (
-          <div>
-            <dt>{k}</dt>
-            <dd>{v}</dd>
-          </div>
-        ))}
-      </dl>
+        <dl class="facts">
+          {facts.map(([k, v]) => (
+            <div>
+              <dt class="mono">{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </header>
 
       <figure class:list={['project__hero', { 'project__hero--carousel': p.gallery.length > 1 }]}>
         {p.gallery.length > 1 ? (
@@ -57,7 +77,7 @@ const facts = [
             <div class="carousel__stage">
               {p.gallery.map((g, i) => (
                 <div class="carousel__item" data-item aria-roledescription="slide" aria-label={`${i + 1} / ${p.gallery.length}`}>
-                  <Image src={g.src} alt={g.alt} widths={[480, 800, 1200]} sizes="(max-width: 700px) 70vw, 34vw" loading={i < 3 ? 'eager' : 'lazy'} />
+                  <Image src={g.src} alt={g.alt} widths={[480, 800, 1200]} sizes="(max-width: 700px) 70vw, 34vw" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} />
                 </div>
               ))}
             </div>
@@ -126,7 +146,7 @@ const facts = [
             if (b.type === 'image') {
               return (
                 <figure class:list={['block-image', { 'is-wide': b.wide }]}>
-                  <Image src={b.src} alt={b.alt} widths={[720, 1200, 1800, 2400]} sizes={b.wide ? '100vw' : '(max-width: 1440px) 92vw, 1300px'} />
+                  <Image src={b.src} alt={b.alt} widths={[720, 1200, 1800, 2400]} sizes={b.wide ? '100vw' : '(max-width: 1440px) 92vw, 1300px'} data-zoom />
                   {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
                 </figure>
               );
@@ -166,7 +186,7 @@ const facts = [
               return (
                 <figure class="block-images" style={`--cols: ${b.items.length}`}>
                   {b.items.map((it) => (
-                    <Image src={it.src} alt={it.alt} widths={[480, 720, 1200]} sizes={`(max-width: 700px) 92vw, ${Math.round(92 / b.items.length)}vw`} />
+                    <Image src={it.src} alt={it.alt} widths={[480, 720, 1200]} sizes={`(max-width: 700px) ${b.items.length === 4 ? 46 : 92}vw, ${Math.round(92 / b.items.length)}vw`} data-zoom />
                   ))}
                   {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
                 </figure>
@@ -223,9 +243,12 @@ const facts = [
       )}
 
       {next && nextData ? (
-        <a class="next" href={href(lang, `/work/${next.id}/`)}>
-          <p class="label"><span class="tc">{t.nextIn(section.label)}</span><span>{nextData.category}</span></p>
-          <span class="next__title">{nextData.title}&nbsp;→</span>
+        <a class="next next--thumb" href={href(lang, `/work/${next.id}/`)}>
+          <span class="next__text">
+            <p class="label"><span class="tc">{t.nextIn(section.label)}</span><span>{nextData.category}</span></p>
+            <span class="next__title">{nextData.title}&nbsp;→</span>
+          </span>
+          {nextThumb && <img class="next__img" src={nextThumb.src} alt="" width="640" height={Math.round(640 * (nextData.cover.height / nextData.cover.width))} loading="lazy" decoding="async" />}
         </a>
       ) : (
         <a class="next" href={href(lang, `/#work-${p.section}`)}>
@@ -235,4 +258,11 @@ const facts = [
       )}
     </div>
   </article>
+  <dialog class="lightbox" data-lightbox aria-label={t.zoom}>
+    <div class="lightbox__frame" data-lightbox-frame></div>
+    <p class="lightbox__cap mono" data-lightbox-cap></p>
+    <button class="lightbox__btn lightbox__close" type="button" data-lightbox-close aria-label={t.close}>×</button>
+    <button class="lightbox__btn lightbox__prev" type="button" data-lightbox-prev aria-label={t.prev}>←</button>
+    <button class="lightbox__btn lightbox__next" type="button" data-lightbox-next aria-label={t.next}>→</button>
+  </dialog>
 </Base>
